@@ -1,10 +1,10 @@
-%define qt_version 3.3.3
+%define qt_version 1:3.3.4
 %{!?with_qt:%define with_qt 1}
 
 Summary: A documentation system for C/C++.
 Name: doxygen
-Version: 1.4.1
-Release: 2
+Version: 1.4.2
+Release: 1
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 
@@ -86,8 +86,8 @@ rm -rf ${RPM_BUILD_ROOT}
 %if %{with_qt}
 %doc html
 %endif
-%{_bindir}/doxygen
-%{_bindir}/doxytag
+%{_bindir}/*
+%exclude %{_bindir}/doxywizard
 
 %if %{with_qt}
 %files doxywizard
@@ -96,6 +96,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %endif
 
 %changelog
+* Thu Mar 31 2005 Than Ngo <than@redhat.com> 1:1.4.2-1
+- 1.4.2
+
 * Fri Mar 04 2005 Than Ngo <than@redhat.com> 1:1.4.1-2
 - rebuilt against gcc-4
 
