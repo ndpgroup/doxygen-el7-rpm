@@ -8,8 +8,7 @@ Release: 1
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 
-Patch0: doxygen-1.2.7-redhat.patch
-Patch1: doxygen-1.2.12-qt2.patch
+Patch0: doxygen-1.4.2-redhat.patch
 Patch2: doxygen-1.2.18-libdir.patch
 
 Group: Development/Tools
@@ -45,7 +44,6 @@ are used by doxygen.
 %prep
 %setup -q
 %patch0 -p1 -b .redhat
-%patch1 -p1 -b .qt2
 
 %if "%{_lib}" != "lib"
 %patch2 -p1 -b .libdir
