@@ -1,15 +1,16 @@
 Summary: A documentation system for C and C++.
 Name: doxygen
-Version: 1.2.8
+Version: 1.2.8.1
 Release: 1
 Epoch: 1
 Source0: http://www.stack.nl/~dimitri/doxygen/dl/%{name}-%{version}.src.tar.gz
 Patch: doxygen-1.2.7-redhat.patch
+Patch1: doxygen-1.2.8.1-config.patch
 Group: Development/Tools
 Copyright: GPL
 URL: http://www.stack.nl/~dimitri/doxygen/index.html
 Prefix: %{_prefix}
-BuildPrereq: qt-devel >= 2.1 libstdc++-devel >= 2.96 /usr/bin/perl
+BuildPrereq: libstdc++-devel >= 2.96, /usr/bin/perl
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 
 %description
@@ -19,19 +20,34 @@ LaTeX) from a set of documented source files. The documentation is
 extracted directly from the sources.  Doxygen can be configured to
 extract the code structure from undocumented source files.
 
+%package doxywizard
+Summary: a GUI front-end for creating and editing configuration files
+Group: User Interface/X
+BuildPrereq: qt-devel => 2.1
+Requires: %{name} = %{version}, qt >= 2.2
+
+%description doxywizard
+Doxywizard is a GUI front-end for creating and editing
+configuration files that are used by doxygen.
+
 %prep
 %setup -q
 %patch -p1 -b .redhat
+%patch1 -p1 -b .config
+
 QTDIR= && . /etc/profile.d/qt.sh
 
 %build
 QTDIR= && . /etc/profile.d/qt.sh
+export OLD_PO_FILE_INPUT=yes
 
 ./configure --prefix %{_prefix} --shared --release --with-doxywizard
 make all docs
 
 %install
 rm -rf ${RPM_BUILD_ROOT}
+
+export OLD_PO_FILE_INPUT=yes
 make install INSTALL=$RPM_BUILD_ROOT%{_prefix}
 
 %clean
@@ -39,10 +55,21 @@ rm -rf ${RPM_BUILD_ROOT}
 
 %files
 %defattr(-,root,root)
-%doc LANGUAGE.HOWTO README doc examples html
-%{_bindir}/*
+%doc LANGUAGE.HOWTO README examples html
+%{_bindir}/doxygen
+%{_bindir}/doxysearch
+%{_bindir}/doxytag
+
+%files doxywizard
+%defattr(-,root,root)
+%{_bindir}/doxywizard
 
 %changelog
+* Wed Jun 13 2001 Than Ngo <than@redhat.com>
+- update tp 1.2.8.1
+- make doxywizard as separat package
+- fix to use install as default
+
 * Tue Jun 05 2001 Than Ngo <than@redhat.com>
 - update to 1.2.8
 
