@@ -3,7 +3,7 @@
 
 Summary: A documentation system for C/C++.
 Name: doxygen
-Version: 1.3.9
+Version: 1.3.9.1
 Release: 1
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
@@ -96,6 +96,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %endif
 
 %changelog
+* Sun Oct 10 2004 Than Ngo <than@redhat.com> 1:1.3.9.1-1
+- update to 1.3.9.1
+
 * Wed Oct 06 2004 Than Ngo <than@redhat.com> 1:1.3.9-1
 - update to 1.3.9
 
