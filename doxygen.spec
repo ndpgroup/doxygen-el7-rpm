@@ -86,6 +86,7 @@ rm -rf ${RPM_BUILD_ROOT}
 %endif
 %{_bindir}/*
 %exclude %{_bindir}/doxywizard
+%{_mandir}/man1/*
 
 %if %{with_qt}
 %files doxywizard
