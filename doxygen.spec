@@ -1,10 +1,10 @@
-%define qt_version 3.3.0
+%define qt_version 3.3.2
 %{!?with_qt:%define with_qt 1}
 
 Summary: A documentation system for C/C++.
 Name: doxygen
-Version: 1.3.6
-Release: 2
+Version: 1.3.7
+Release: 1
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 
@@ -98,6 +98,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %endif
 
 %changelog
+* Tue May 11 2004 Than Ngo <than@redhat.com> 1.3.7-1
+- update to 1.3.7, bug #119340
+
 * Sun Apr 04 2004 Than Ngo <than@redhat.com> 1:1.3.6-2
 - fix qt-mt linking problem
 
