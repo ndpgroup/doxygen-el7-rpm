@@ -1,7 +1,7 @@
 Summary: A documentation system for C and C++.
 Name: doxygen
 Version: 1.2.6
-Release: 1
+Release: 2
 Epoch: 1
 Source0: http://www.stack.nl/~dimitri/doxygen/dl/%{name}-%{version}.src.tar.gz
 Group: Development/Tools
@@ -58,6 +58,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_bindir}/*
 
 %changelog
+* Fri Apr 27 2001 Bill Nottingham <notting@redhat.com>
+- rebuild for C++ exception handling on ia64
+
 * Wed Mar 14 2001 Jeff Johnson <jbj@redhat.com>
 - update to 1.2.6
 
