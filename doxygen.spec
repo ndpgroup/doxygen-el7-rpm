@@ -1,17 +1,24 @@
+%define qt_version 3.1.1
+
 Summary: A documentation system for C/C++.
 Name: doxygen
-Version: 1.2.14
-Release: 8
+Version: 1.2.18
+Release: 3
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.bz2
+
 Patch: doxygen-1.2.7-redhat.patch
 Patch1: doxygen-1.2.12-qt2.patch
-PAtch2: doxygen-1.2.13.1-qt3.patch
+Patch2: doxygen-1.2.18-libdir.patch
+
 Group: Development/Tools
 License: GPL
 Url: http://www.stack.nl/~dimitri/doxygen/index.html
 Prefix: %{_prefix}
-BuildPrereq: libstdc++-devel >= 2.96, /usr/bin/perl
+
+BuildPrereq: libstdc++-devel
+BuildPrereq: perl
+
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 
 %description
@@ -25,7 +32,7 @@ source files.
 Summary: A GUI for creating and editing configuration files.
 Group: User Interface/X
 Requires: %{name} = %{version}
-BuildPrereq: qt-devel => 2.3.0
+BuildPrereq: qt-devel => %{qt_version}
 
 %description doxywizard
 Doxywizard is a GUI for creating and editing configuration files that
@@ -35,14 +42,24 @@ are used by doxygen.
 %setup -q
 %patch -p1 -b .redhat
 %patch1 -p1 -b .qt2
-%patch2 -p1 -b .qt3
+
+%ifarch x86_64 s390x
+%patch2 -p1 -b .libdir
+%endif
 
 %build
 QTDIR="" && . /etc/profile.d/qt.sh
 export OLD_PO_FILE_INPUT=yes
 
-./configure --prefix %{_prefix} --shared --release --with-doxywizard
-make all docs
+./configure \
+   --prefix %{_prefix} \
+   --shared \
+   --release \
+   --with-doxywizard \
+   --install %{_bindir}/install
+
+make %{?_smp_mflags} all
+make docs
 
 %install
 rm -rf ${RPM_BUILD_ROOT}
@@ -65,6 +82,21 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_bindir}/doxywizard
 
 %changelog
+* Wed Jan 22 2003 Tim Powers <timp@redhat.com>
+- rebuilt
+
+* Fri Dec 27 2002 Than Ngo <than@redhat.com> 1.2.18-2
+- use gnu install
+
+* Sat Nov  9 2002 Than Ngo <than@redhat.com> 1.2.18-1.2
+- fix some build problem
+
+* Tue Oct 15 2002 Than Ngo <than@redhat.com> 1.2.18-1
+- 1.2.18
+
+* Wed Aug 28 2002 Than Ngo <than@redhat.com> 1.2.17-1
+- 1.2.17 fixes many major bugs
+
 * Sat Aug 10 2002 Elliot Lee <sopwith@redhat.com>
 - rebuilt with gcc-3.2 (we hope)
 
