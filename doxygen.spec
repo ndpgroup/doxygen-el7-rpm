@@ -1,7 +1,7 @@
 Summary: A documentation system for C/C++.
 Name: doxygen
 Version: 1.2.14
-Release: 4
+Release: 7
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.bz2
 Patch: doxygen-1.2.7-redhat.patch
@@ -65,6 +65,15 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_bindir}/doxywizard
 
 %changelog
+* Mon Jul 22 2002 Tim Powers <timp@redhat.com>
+- rebuild using gcc-3.2-0.1
+
+* Fri Jun 21 2002 Tim Powers <timp@redhat.com>
+- automated rebuild
+
+* Thu May 23 2002 Tim Powers <timp@redhat.com>
+- automated rebuild
+
 * Tue Apr 16 2002 Bernhard Rosenkraenzer <bero@redhat.com> 1.2.13-5
 - rebuild against qt 3.0.3-10
 
