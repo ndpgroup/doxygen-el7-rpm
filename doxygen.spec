@@ -1,14 +1,15 @@
 Summary: A documentation system for C/C++.
 Name: doxygen
-Version: 1.2.8.1
-Release: 2
+Version: 1.2.14
+Release: 3
 Epoch: 1
-Source0: http://www.stack.nl/~dimitri/doxygen/dl/%{name}-%{version}.src.tar.gz
+Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.bz2
 Patch: doxygen-1.2.7-redhat.patch
-Patch1: doxygen-1.2.8.1-config.patch
+Patch1: doxygen-1.2.12-qt2.patch
+PAtch2: doxygen-1.2.13.1-qt3.patch
 Group: Development/Tools
-Copyright: GPL
-URL: http://www.stack.nl/~dimitri/doxygen/index.html
+License: GPL
+Url: http://www.stack.nl/~dimitri/doxygen/index.html
 Prefix: %{_prefix}
 BuildPrereq: libstdc++-devel >= 2.96, /usr/bin/perl
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
@@ -23,8 +24,8 @@ source files.
 %package doxywizard
 Summary: A GUI for creating and editing configuration files.
 Group: User Interface/X
-BuildPrereq: qt-devel => 2.1
-Requires: %{name} = %{version}, qt >= 2.2
+Requires: %{name} = %{version}
+BuildPrereq: qt-devel => 2.3.0
 
 %description doxywizard
 Doxywizard is a GUI for creating and editing configuration files that
@@ -33,12 +34,11 @@ are used by doxygen.
 %prep
 %setup -q
 %patch -p1 -b .redhat
-%patch1 -p1 -b .config
-
-QTDIR= && . /etc/profile.d/qt.sh
+%patch1 -p1 -b .qt2
+%patch2 -p1 -b .qt3
 
 %build
-QTDIR= && . /etc/profile.d/qt.sh
+QTDIR="" && . /etc/profile.d/qt.sh
 export OLD_PO_FILE_INPUT=yes
 
 ./configure --prefix %{_prefix} --shared --release --with-doxywizard
@@ -65,6 +65,29 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_bindir}/doxywizard
 
 %changelog
+* Fri Mar  8 2002 Bernhard Rosenkraenzer <bero@redhat.com> 1.2.13-4
+- rebuild against qt 3.0.2
+
+* Tue Feb 26 2002 Than Ngo <than@redhat.com> 1.2.14-2
+- rebuild against qt 2.3.2
+
+* Tue Feb 19 2002 Bernhard Rosenkraenzer <bero@redhat.com> 1.2.14-1
+- 1.2.14
+
+* Wed Jan 09 2002 Tim Powers <timp@redhat.com>
+- automated rebuild
+
+* Sun Jan 06 2002 Than Ngo <than@redhat.com> 1.2.13.1-1
+- update to 1.2.13.1
+- fixed build doxywizard with qt3
+
+* Sun Dec 30 2001 Jeff Johnson <jbj@redhat.com> 1.2.13-1
+- update to 1.2.13
+
+* Sun Nov 18 2001 Than Ngo <than@redhat.com> 1.2.12-1
+- update to 1.2.12
+- s/Copyright/License
+
 * Wed Sep 12 2001 Tim Powers <timp@redhat.com>
 - rebuild with new gcc and binutils
 
