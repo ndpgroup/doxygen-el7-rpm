@@ -1,9 +1,9 @@
-%define qt_version 3.3.2
+%define qt_version 3.3.3
 %{!?with_qt:%define with_qt 1}
 
 Summary: A documentation system for C/C++.
 Name: doxygen
-Version: 1.3.8
+Version: 1.3.9
 Release: 1
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
@@ -96,6 +96,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %endif
 
 %changelog
+* Wed Oct 06 2004 Than Ngo <than@redhat.com> 1:1.3.9-1
+- update to 1.3.9
+
 * Sun Jul 25 2004 Than Ngo <than@redhat.com> 1:1.3.8-1
 - update to 1.3.8
 
