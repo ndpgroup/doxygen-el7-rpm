@@ -1,9 +1,9 @@
-%define qt_version 3.1.2
+%define qt_version 3.3.0
 %{!?with_qt:%define with_qt 1}
 
 Summary: A documentation system for C/C++.
 Name: doxygen
-Version: 1.3.5
+Version: 1.3.6
 Release: 1
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
@@ -19,6 +19,7 @@ Prefix: %{_prefix}
 
 BuildPrereq: libstdc++-devel
 BuildPrereq: perl
+Buildrequires: tetex-dvips, tetex-latex, ghostscript
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 
@@ -95,6 +96,13 @@ rm -rf ${RPM_BUILD_ROOT}
 %endif
 
 %changelog
+* Thu Feb 26 2004 Than Ngo <than@redhat.com> 1:1.3.6-1
+- update to 1.3.6
+- added more buildrequires, #110752
+
+* Fri Feb 13 2004 Elliot Lee <sopwith@redhat.com>
+- rebuilt
+
 * Wed Dec 17 2003 Than Ngo <than@redhat.com> 1:1.3.5-1
 - 1.3.5 release
 
