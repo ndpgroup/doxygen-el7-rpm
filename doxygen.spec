@@ -3,15 +3,14 @@
 
 Summary: A documentation system for C/C++.
 Name: doxygen
-Version: 1.3.7
-Release: 2
+Version: 1.3.8
+Release: 1
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 
 Patch0: doxygen-1.2.7-redhat.patch
 Patch1: doxygen-1.2.12-qt2.patch
 Patch2: doxygen-1.2.18-libdir.patch
-Patch3: doxygen-1.3.6-qt.patch
 
 Group: Development/Tools
 License: GPL
@@ -51,7 +50,6 @@ are used by doxygen.
 %if "%{_lib}" != "lib"
 %patch2 -p1 -b .libdir
 %endif
-%patch3 -p1 -b .qt-mt
 
 %build
 %if %{with_qt}
@@ -98,6 +96,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %endif
 
 %changelog
+* Sun Jul 25 2004 Than Ngo <than@redhat.com> 1:1.3.8-1
+- update to 1.3.8
+
 * Tue Jun 15 2004 Elliot Lee <sopwith@redhat.com>
 - rebuilt
 
