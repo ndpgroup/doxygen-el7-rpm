@@ -1,7 +1,7 @@
-Summary: A documentation system for C and C++.
+Summary: A documentation system for C/C++.
 Name: doxygen
 Version: 1.2.8.1
-Release: 1
+Release: 2
 Epoch: 1
 Source0: http://www.stack.nl/~dimitri/doxygen/dl/%{name}-%{version}.src.tar.gz
 Patch: doxygen-1.2.7-redhat.patch
@@ -14,21 +14,21 @@ BuildPrereq: libstdc++-devel >= 2.96, /usr/bin/perl
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 
 %description
-Doxygen is a documentation system for C and C++.  Doxygen can generate
-an on-line class browser (in HTML) and/or a reference manual (in
-LaTeX) from a set of documented source files. The documentation is
-extracted directly from the sources.  Doxygen can be configured to
-extract the code structure from undocumented source files.
+Doxygen can generate an online class browser (in HTML) and/or a
+reference manual (in LaTeX) from a set of documented source files. The
+documentation is extracted directly from the sources. Doxygen can
+also be configured to extract the code structure from undocumented
+source files.
 
 %package doxywizard
-Summary: a GUI front-end for creating and editing configuration files
+Summary: A GUI for creating and editing configuration files.
 Group: User Interface/X
 BuildPrereq: qt-devel => 2.1
 Requires: %{name} = %{version}, qt >= 2.2
 
 %description doxywizard
-Doxywizard is a GUI front-end for creating and editing
-configuration files that are used by doxygen.
+Doxywizard is a GUI for creating and editing configuration files that
+are used by doxygen.
 
 %prep
 %setup -q
@@ -65,6 +65,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_bindir}/doxywizard
 
 %changelog
+* Wed Sep 12 2001 Tim Powers <timp@redhat.com>
+- rebuild with new gcc and binutils
+
 * Wed Jun 13 2001 Than Ngo <than@redhat.com>
 - update tp 1.2.8.1
 - make doxywizard as separat package
