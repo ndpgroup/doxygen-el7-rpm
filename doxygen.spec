@@ -1,8 +1,8 @@
 Summary: A documentation system for C and C++.
 Name: doxygen
-Version: 1.2.1
+Version: 1.2.6
 Release: 1
-Serial: 1
+Epoch: 1
 Source0: http://www.stack.nl/~dimitri/doxygen/dl/%{name}-%{version}.src.tar.gz
 Group: Development/Tools
 Copyright: GPL
@@ -10,7 +10,6 @@ URL: http://www.stack.nl/~dimitri/doxygen/index.html
 Prefix: %{_prefix}
 BuildPrereq: qt-devel >= 2.1 libstdc++-devel >= 2.96 /usr/bin/perl
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
-ExcludeArch: ia64
 
 %description
 Doxygen is a documentation system for C and C++.  Doxygen can generate
@@ -32,7 +31,7 @@ ln -s $QTDIR/lib lib
 export QTDIR=
 . /etc/profile.d/qt.sh
 
-./configure --shared --release --prefix %{_prefix}
+./configure --prefix %{_prefix} --shared --release --with-doxywizard
 
 # the compiler is ICEing and generating bad code at the moment,
 # revert when fixed!!
@@ -40,8 +39,7 @@ export QTDIR=
 #perl -pi -e "s|-O2||" tmake/lib/linux-g++/tmake.conf
 #%endif
 
-make
-make docs
+make all docs
 
 %install
 rm -rf ${RPM_BUILD_ROOT}
@@ -60,6 +58,27 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_bindir}/*
 
 %changelog
+* Wed Mar 14 2001 Jeff Johnson <jbj@redhat.com>
+- update to 1.2.6
+
+* Wed Feb 28 2001 Trond Eivind Glomsrød <teg@redhat.com>
+- rebuild
+
+* Tue Dec 26 2000 Than Ngo <than@redhat.com>
+- update to 1.2.4
+- remove excludearch ia64
+- bzip2 sources
+
+* Mon Dec 11 2000 Than Ngo <than@redhat.com>
+- rebuild with the fixed fileutils
+
+* Mon Oct 30 2000 Jeff Johnson <jbj@redhat.com>
+- update to 1.2.3.
+
+* Sun Oct  8 2000 Jeff Johnson <jbj@redhat.com>
+- update to 1.2.2.
+- enable doxywizard.
+
 * Sat Aug 19 2000 Preston Brown <pbrown@redhat.com>
 - 1.2.1 is latest stable, so we upgrade before Winston is released.
 
