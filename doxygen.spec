@@ -3,7 +3,7 @@
 
 Summary: A documentation system for C/C++.
 Name: doxygen
-Version: 1.3.9.1
+Version: 1.4.1
 Release: 1
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
@@ -19,9 +19,9 @@ Prefix: %{_prefix}
 
 BuildPrereq: libstdc++-devel
 BuildPrereq: perl
-Buildrequires: tetex-dvips, tetex-latex, ghostscript
+BuildPrereq: tetex-dvips, tetex-latex, ghostscript
 
-BuildRoot: %{_tmppath}/%{name}-%{version}-root
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 Doxygen can generate an online class browser (in HTML) and/or a
@@ -96,6 +96,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %endif
 
 %changelog
+* Wed Jan 19 2005 Than Ngo <than@redhat.com> 1:1.4.1-1
+- update to 1.4.1
+
 * Sun Oct 10 2004 Than Ngo <than@redhat.com> 1:1.3.9.1-1
 - update to 1.3.9.1
 
