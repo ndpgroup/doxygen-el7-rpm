@@ -1,9 +1,10 @@
 Summary: A documentation system for C and C++.
 Name: doxygen
-Version: 1.2.6
-Release: 2
+Version: 1.2.8
+Release: 1
 Epoch: 1
 Source0: http://www.stack.nl/~dimitri/doxygen/dl/%{name}-%{version}.src.tar.gz
+Patch: doxygen-1.2.7-redhat.patch
 Group: Development/Tools
 Copyright: GPL
 URL: http://www.stack.nl/~dimitri/doxygen/index.html
@@ -20,34 +21,18 @@ extract the code structure from undocumented source files.
 
 %prep
 %setup -q
-export QTDIR=
-. /etc/profile.d/qt.sh
-
-# use Qt defined in $QTDIR
-ln -s $QTDIR/include include
-ln -s $QTDIR/lib lib
+%patch -p1 -b .redhat
+QTDIR= && . /etc/profile.d/qt.sh
 
 %build
-export QTDIR=
-. /etc/profile.d/qt.sh
+QTDIR= && . /etc/profile.d/qt.sh
 
 ./configure --prefix %{_prefix} --shared --release --with-doxywizard
-
-# the compiler is ICEing and generating bad code at the moment,
-# revert when fixed!!
-#%ifarch %{ix86}
-#perl -pi -e "s|-O2||" tmake/lib/linux-g++/tmake.conf
-#%endif
-
 make all docs
 
 %install
 rm -rf ${RPM_BUILD_ROOT}
-mkdir -p ${RPM_BUILD_ROOT}%{_bindir}
-
-for i in bin/*; do
-    install -s -m 0755 $i ${RPM_BUILD_ROOT}%{_bindir}/`basename $i`
-done
+make install INSTALL=$RPM_BUILD_ROOT%{_prefix}
 
 %clean
 rm -rf ${RPM_BUILD_ROOT}
@@ -58,8 +43,13 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_bindir}/*
 
 %changelog
-* Fri Apr 27 2001 Bill Nottingham <notting@redhat.com>
-- rebuild for C++ exception handling on ia64
+* Tue Jun 05 2001 Than Ngo <than@redhat.com>
+- update to 1.2.8
+
+* Tue May 01 2001 Than Ngo <than@redhat.com>
+- update to 1.2.7
+- clean up specfile
+- patch to use RPM_OPT_FLAG
 
 * Wed Mar 14 2001 Jeff Johnson <jbj@redhat.com>
 - update to 1.2.6
