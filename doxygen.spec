@@ -1,13 +1,14 @@
 %define qt_version 3.1.1
+%{!?with_qt:%define with_qt 1}
 
 Summary: A documentation system for C/C++.
 Name: doxygen
-Version: 1.2.18
-Release: 3
+Version: 1.3.4
+Release: 1
 Epoch: 1
-Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.bz2
+Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 
-Patch: doxygen-1.2.7-redhat.patch
+Patch0: doxygen-1.2.7-redhat.patch
 Patch1: doxygen-1.2.12-qt2.patch
 Patch2: doxygen-1.2.18-libdir.patch
 
@@ -28,38 +29,46 @@ documentation is extracted directly from the sources. Doxygen can
 also be configured to extract the code structure from undocumented
 source files.
 
+%if %{with_qt}
 %package doxywizard
 Summary: A GUI for creating and editing configuration files.
 Group: User Interface/X
-Requires: %{name} = %{version}
+Requires: %{name} = %{epoch}:%{version}
 BuildPrereq: qt-devel => %{qt_version}
 
 %description doxywizard
 Doxywizard is a GUI for creating and editing configuration files that
 are used by doxygen.
+%endif
 
 %prep
 %setup -q
-%patch -p1 -b .redhat
+%patch0 -p1 -b .redhat
 %patch1 -p1 -b .qt2
 
-%ifarch x86_64 s390x
+%if "%{_lib}" != "lib"
 %patch2 -p1 -b .libdir
 %endif
 
 %build
+%if %{with_qt}
 QTDIR="" && . /etc/profile.d/qt.sh
+%endif
 export OLD_PO_FILE_INPUT=yes
 
 ./configure \
    --prefix %{_prefix} \
    --shared \
    --release \
+%if %{with_qt}
    --with-doxywizard \
+%endif
    --install %{_bindir}/install
 
 make %{?_smp_mflags} all
+%if %{with_qt}
 make docs
+%endif
 
 %install
 rm -rf ${RPM_BUILD_ROOT}
@@ -72,16 +81,36 @@ rm -rf ${RPM_BUILD_ROOT}
 
 %files
 %defattr(-,root,root)
-%doc LANGUAGE.HOWTO README examples html
+%doc LANGUAGE.HOWTO README examples
+%if %{with_qt}
+%doc html
+%endif
 %{_bindir}/doxygen
-%{_bindir}/doxysearch
 %{_bindir}/doxytag
 
+%if %{with_qt}
 %files doxywizard
 %defattr(-,root,root)
 %{_bindir}/doxywizard
+%endif
 
 %changelog
+* Fri Sep 26 2003 Harald Hoyer <harald@redhat.de> 1:1.3.4-1
+- update to 1.3.4
+- doxsearch was removed
+
+* Tue Sep 23 2003 Florian La Roche <Florian.LaRoche@redhat.de>
+- allow compiling without qt/doxywizard
+
+* Wed Jun 04 2003 Elliot Lee <sopwith@redhat.com>
+- rebuilt
+
+* Tue Jun  3 2003 Jeff Johnson <jbj@redhat.com>
+- add explicit epoch's where needed.
+
+* Tue May  6 2003 Than Ngo <than@redhat.com> 1.3-1
+- 1.3
+
 * Wed Jan 22 2003 Tim Powers <timp@redhat.com>
 - rebuilt
 
