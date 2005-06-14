@@ -1,0 +1,31 @@
+--- doxygen-1.4.3/Makefile.in.redhat	2005-03-28 22:52:12.000000000 +0200
++++ doxygen-1.4.3/Makefile.in	2005-06-14 14:26:10.000000000 +0200
+@@ -46,7 +46,7 @@
+ 
+ DATE=$(shell date "+%B %Y")
+ 
+-MAN1DIR = man/man1
++MAN1DIR = share/man/man1
+ 
+ install: doxywizard_install 
+ 	$(INSTTOOL) -d $(INSTALL)/bin
+--- doxygen-1.4.3/tmake/lib/linux-g++/tmake.conf.redhat	2005-04-20 20:23:26.000000000 +0200
++++ doxygen-1.4.3/tmake/lib/linux-g++/tmake.conf	2005-06-14 14:19:25.000000000 +0200
+@@ -11,7 +11,7 @@
+ TMAKE_CFLAGS		= -pipe
+ TMAKE_CFLAGS_WARN_ON	= -Wall -W -fno-exceptions
+ TMAKE_CFLAGS_WARN_OFF	=
+-TMAKE_CFLAGS_RELEASE	= -O2
++TMAKE_CFLAGS_RELEASE	= $(RPM_OPT_FLAGS)
+ TMAKE_CFLAGS_DEBUG	= -g
+ TMAKE_CFLAGS_SHLIB	= -fPIC
+ TMAKE_CFLAGS_YACC	= -Wno-unused -Wno-parentheses
+@@ -50,7 +50,7 @@
+ TMAKE_LIBS_QT_OPENGL	= -lqgl
+ TMAKE_LIBS_OPENGL	= -lMesaGL -lMesaGLU -lXmu
+ 
+-TMAKE_MOC		= moc
++TMAKE_MOC		= $(QTDIR)/bin/moc
+ 
+ TMAKE_AR		= ar cqs
+ TMAKE_RANLIB		=
