@@ -4,7 +4,7 @@
 Summary: A documentation system for C/C++.
 Name: doxygen
 Version: 1.4.4
-Release: 1
+Release: 2
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 
@@ -87,14 +87,19 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_bindir}/*
 %exclude %{_bindir}/doxywizard
 %{_mandir}/man1/*
+%exclude %{_mandir}/man1/doxywizard*
 
 %if %{with_qt}
 %files doxywizard
 %defattr(-,root,root)
 %{_bindir}/doxywizard
+%{_mandir}/man1/doxywizard*
 %endif
 
 %changelog
+* Mon Sep 19 2005 Than Ngo <than@redhat.com> 1:1.4.4-2
+- move doxywizard man page to subpackge doxywizard
+
 * Thu Jul 21 2005 Than Ngo <than@redhat.com> 1:1.4.4-1
 - update to 1.4.4
 
