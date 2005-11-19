@@ -10,6 +10,7 @@ Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 
 Patch0: doxygen-1.4.3-config.patch
 Patch2: doxygen-1.2.18-libdir.patch
+Patch3: doxygen-1.2.18-libdir64.patch
 
 Group: Development/Tools
 License: GPL
@@ -46,6 +47,8 @@ are used by doxygen.
 %patch0 -p1 -b .redhat
 
 %if "%{_lib}" != "lib"
+%patch3 -p1 -b .libdir
+%else
 %patch2 -p1 -b .libdir
 %endif
 
