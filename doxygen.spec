@@ -4,7 +4,7 @@
 Summary: A documentation system for C/C++.
 Name: doxygen
 Version: 1.4.5
-Release: 1
+Release: 2
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 
@@ -97,6 +97,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %endif
 
 %changelog
+* Fri Nov 18 2005 Bill Nottingham <notting@redhat.com>
+- fix references to /usr/X11R6
+
 * Sat Oct 15 2005 Florian La Roche <laroche@redhat.com>
 - 1.4.5
 
