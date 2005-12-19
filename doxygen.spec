@@ -4,13 +4,14 @@
 Summary: A documentation system for C/C++.
 Name: doxygen
 Version: 1.4.5
-Release: 2.1
+Release: 3
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 
 Patch0: doxygen-1.4.3-config.patch
 Patch2: doxygen-1.2.18-libdir.patch
 Patch3: doxygen-1.2.18-libdir64.patch
+Patch4: doxygen-1.4.5-gcc4.1.patch
 
 Group: Development/Tools
 License: GPL
@@ -51,6 +52,7 @@ are used by doxygen.
 %else
 %patch2 -p1 -b .libdir
 %endif
+%patch4 -p1 -b .gcc4.1
 
 %build
 %if %{with_qt}
@@ -100,6 +102,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %endif
 
 %changelog
+* Mon Dec 19 2005 Than Ngo <than@redhat.com> 1.4.5-3
+- apply patch to fix build problem with gcc-4.1
+
 * Fri Dec 09 2005 Jesse Keating <jkeating@redhat.com>
 - rebuilt
 
