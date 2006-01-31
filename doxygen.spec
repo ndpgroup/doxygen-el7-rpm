@@ -3,8 +3,8 @@
 
 Summary: A documentation system for C/C++.
 Name: doxygen
-Version: 1.4.5
-Release: 3
+Version: 1.4.6
+Release: 1
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 
@@ -102,6 +102,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %endif
 
 %changelog
+* Tue Jan 31 2006 Than Ngo <than@redhat.com> 1.4.6-1
+- 1.4.6
+
 * Mon Dec 19 2005 Than Ngo <than@redhat.com> 1.4.5-3
 - apply patch to fix build problem with gcc-4.1
 
