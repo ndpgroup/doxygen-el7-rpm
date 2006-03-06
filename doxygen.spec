@@ -4,7 +4,7 @@
 Summary: A documentation system for C/C++.
 Name: doxygen
 Version: 1.4.6
-Release: 1.2
+Release: 2
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 
@@ -90,7 +90,7 @@ rm -rf ${RPM_BUILD_ROOT}
 %doc html
 %endif
 %{_bindir}/*
-%exclude %{_bindir}/doxywizard
+%{?_with_qt:%exclude %{_bindir}/doxywizard}
 %{_mandir}/man1/*
 %exclude %{_mandir}/man1/doxywizard*
 
@@ -102,6 +102,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %endif
 
 %changelog
+* Mon Mar 06 2006 Than Ngo <than@redhat.com> 1:1.4.6-2
+- fix build problem #184042
+
 * Fri Feb 10 2006 Jesse Keating <jkeating@redhat.com> - 1:1.4.6-1.2
 - bump again for double-long bug on ppc(64)
 
