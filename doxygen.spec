@@ -1,10 +1,10 @@
-%define qt_version 1:3.3.4
+%define qt_version 1:3.3.5
 %{!?with_qt:%define with_qt 1}
 
 Summary: A documentation system for C/C++.
 Name: doxygen
 Version: 1.4.6
-Release: 2
+Release: 3
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 
@@ -86,22 +86,25 @@ rm -rf ${RPM_BUILD_ROOT}
 %files
 %defattr(-,root,root)
 %doc LANGUAGE.HOWTO README examples
-%if %{with_qt}
-%doc html
-%endif
 %{_bindir}/*
-%{?_with_qt:%exclude %{_bindir}/doxywizard}
 %{_mandir}/man1/*
+%if %{with_qt}
+%exclude %{_bindir}/doxywizard
 %exclude %{_mandir}/man1/doxywizard*
+%endif
 
 %if %{with_qt}
 %files doxywizard
 %defattr(-,root,root)
+%doc html
 %{_bindir}/doxywizard
 %{_mandir}/man1/doxywizard*
 %endif
 
 %changelog
+* Wed Mar 08 2006 Than Ngo <than@redhat.com> 1:1.4.6-3
+- fix typo bug #184400
+
 * Mon Mar 06 2006 Than Ngo <than@redhat.com> 1:1.4.6-2
 - fix build problem #184042
 
