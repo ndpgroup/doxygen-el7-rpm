@@ -12,6 +12,7 @@ Patch0: doxygen-1.4.3-config.patch
 Patch2: doxygen-1.2.18-libdir.patch
 Patch3: doxygen-1.2.18-libdir64.patch
 Patch4: doxygen-1.4.5-gcc4.1.patch
+Patch5: doxygen-1.4.6-crash.patch
 
 Group: Development/Tools
 License: GPL
@@ -53,6 +54,7 @@ are used by doxygen.
 %patch2 -p1 -b .libdir
 %endif
 %patch4 -p1 -b .gcc4.1
+%patch5 -p1 -b .crash
 
 %build
 %if %{with_qt}
@@ -88,6 +90,7 @@ rm -rf ${RPM_BUILD_ROOT}
 %doc LANGUAGE.HOWTO README examples
 %{_bindir}/*
 %{_mandir}/man1/*
+%doc html
 %if %{with_qt}
 %exclude %{_bindir}/doxywizard
 %exclude %{_mandir}/man1/doxywizard*
@@ -96,12 +99,15 @@ rm -rf ${RPM_BUILD_ROOT}
 %if %{with_qt}
 %files doxywizard
 %defattr(-,root,root)
-%doc html
 %{_bindir}/doxywizard
 %{_mandir}/man1/doxywizard*
 %endif
 
 %changelog
+* Fri May 12 2006 Than Ngo <than@redhat.com> 1:1.4.6-4
+- apply patch to fix Doxygen crash on empty file #191392 
+- html docs #187177 
+
 * Wed Mar 08 2006 Than Ngo <than@redhat.com> 1:1.4.6-3
 - fix typo bug #184400
 
