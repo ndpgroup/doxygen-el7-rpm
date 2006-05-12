@@ -4,7 +4,7 @@
 Summary: A documentation system for C/C++.
 Name: doxygen
 Version: 1.4.6
-Release: 3
+Release: 4
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 
@@ -60,7 +60,6 @@ are used by doxygen.
 %if %{with_qt}
 QTDIR="" && . /etc/profile.d/qt.sh
 %endif
-export OLD_PO_FILE_INPUT=yes
 
 ./configure \
    --prefix %{_prefix} \
@@ -72,29 +71,28 @@ export OLD_PO_FILE_INPUT=yes
    --install %{_bindir}/install
 
 make %{?_smp_mflags} all
-%if %{with_qt}
 make docs
-%endif
 
 %install
-rm -rf ${RPM_BUILD_ROOT}
+rm -rf %{buildroot}
 
-export OLD_PO_FILE_INPUT=yes
-make install INSTALL=$RPM_BUILD_ROOT%{_prefix}
+make install INSTALL=%{buildroot}%{_prefix}
+
+%if !%{with_qt}
+  rm -rf %{buildroot}%{_mandir}/man1/doxywizard*
+%endif
 
 %clean
-rm -rf ${RPM_BUILD_ROOT}
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
 %doc LANGUAGE.HOWTO README examples
-%{_bindir}/*
-%{_mandir}/man1/*
 %doc html
-%if %{with_qt}
-%exclude %{_bindir}/doxywizard
-%exclude %{_mandir}/man1/doxywizard*
-%endif
+%{_bindir}/doxygen
+%{_bindir}/doxytag
+%{_mandir}/man1/doxygen.1*
+%{_mandir}/man1/doxytag.1*
 
 %if %{with_qt}
 %files doxywizard
