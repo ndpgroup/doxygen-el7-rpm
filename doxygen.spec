@@ -4,7 +4,7 @@
 Summary: A documentation system for C/C++.
 Name: doxygen
 Version: 1.4.6
-Release: 4
+Release: 5
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 
@@ -22,6 +22,9 @@ Prefix: %{_prefix}
 BuildPrereq: libstdc++-devel
 BuildPrereq: perl
 BuildPrereq: tetex-dvips, tetex-latex, ghostscript
+BuildPrereq: gettext
+BuildPrereq: flex
+BuildPrereq: bison
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
@@ -102,6 +105,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Thu Jun 08 2006 Than Ngo <than@redhat.com> 1:1.4.6-5
+- fix build problem in mock #193358 
+
 * Fri May 12 2006 Than Ngo <than@redhat.com> 1:1.4.6-4
 - apply patch to fix Doxygen crash on empty file #191392 
 - html docs #187177 
