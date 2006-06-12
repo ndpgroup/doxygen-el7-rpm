@@ -3,21 +3,18 @@
 
 Summary: A documentation system for C/C++.
 Name: doxygen
-Version: 1.4.6
-Release: 5
+Version: 1.4.7
+Release: 1
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 
 Patch0: doxygen-1.4.3-config.patch
 Patch2: doxygen-1.2.18-libdir.patch
 Patch3: doxygen-1.2.18-libdir64.patch
-Patch4: doxygen-1.4.5-gcc4.1.patch
-Patch5: doxygen-1.4.6-crash.patch
 
 Group: Development/Tools
 License: GPL
 Url: http://www.stack.nl/~dimitri/doxygen/index.html
-Prefix: %{_prefix}
 
 BuildPrereq: libstdc++-devel
 BuildPrereq: perl
@@ -56,8 +53,6 @@ are used by doxygen.
 %else
 %patch2 -p1 -b .libdir
 %endif
-%patch4 -p1 -b .gcc4.1
-%patch5 -p1 -b .crash
 
 %build
 %if %{with_qt}
@@ -105,6 +100,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Mon Jun 12 2006 Than Ngo <than@redhat.com> 1:1.4.7-1
+- update to 1.4.7
+
 * Thu Jun 08 2006 Than Ngo <than@redhat.com> 1:1.4.6-5
 - fix build problem in mock #193358 
 
