@@ -3,8 +3,8 @@
 
 Summary: A documentation system for C/C++.
 Name: doxygen
-Version: 1.5.1
-Release: 2
+Version: 1.5.2
+Release: 1%{?dist}
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 
@@ -16,14 +16,15 @@ Group: Development/Tools
 License: GPL
 Url: http://www.stack.nl/~dimitri/doxygen/index.html
 
-BuildPrereq: libstdc++-devel
-BuildPrereq: perl
-BuildPrereq: tetex-dvips, tetex-latex, ghostscript
-BuildPrereq: gettext
-BuildPrereq: flex
-BuildPrereq: bison
+BuildRequires: perl
+BuildRequires: tetex-dvips
+BuildRequires: tetex-latex
+BuildRequires: ghostscript
+BuildRequires: gettext
+BuildRequires: flex
+BuildRequires: bison
 
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description
 Doxygen can generate an online class browser (in HTML) and/or a
@@ -100,6 +101,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Thu Apr 12 2007 Than Ngo <than@redhat.com> - 1:1.5.2-1
+- 1.5.2
+
 * Fri Nov 03 2006 Than Ngo <than@redhat.com> 1:1.5.1-2
 - 1.5.1
 
