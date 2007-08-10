@@ -1,9 +1,9 @@
-%define qt_version 1:3.3.5
+%define qt_version 1:3.3.8
 %{!?with_qt:%define with_qt 1}
 
 Summary: A documentation system for C/C++.
 Name: doxygen
-Version: 1.5.2
+Version: 1.5.3
 Release: 1%{?dist}
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
@@ -101,6 +101,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Fri Aug 10 2007 Than Ngo <than@redhat.com> - 1:1.5.3-1
+- 1.5.3
+
 * Thu Apr 12 2007 Than Ngo <than@redhat.com> - 1:1.5.2-1
 - 1.5.2
 
