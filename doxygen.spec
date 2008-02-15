@@ -3,7 +3,7 @@
 
 Summary: A documentation system for C/C++.
 Name: doxygen
-Version: 1.5.4
+Version: 1.5.5
 Release: 1%{?dist}
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
@@ -17,8 +17,9 @@ License: GPL
 Url: http://www.stack.nl/~dimitri/doxygen/index.html
 
 BuildRequires: perl
-BuildRequires: tetex-dvips
-BuildRequires: tetex-latex
+BuildRequires: texlive-dvips
+BuildRequires: texlive-utils
+BuildRequires: texlive-latex
 BuildRequires: ghostscript
 BuildRequires: gettext
 BuildRequires: flex
@@ -101,6 +102,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Fri Feb 15 2008 Than Ngo <than@redhat.com> 1.5.5-1
+- 1.5.5
+
 * Wed Nov 28 2007 Than Ngo <than@redhat.com> 1.5.4-1
 - 1.5.4
 
