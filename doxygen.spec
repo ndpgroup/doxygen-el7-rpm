@@ -24,6 +24,7 @@ BuildRequires: ghostscript
 BuildRequires: gettext
 BuildRequires: flex
 BuildRequires: bison
+BuildRequires: libpng-devel
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -105,6 +106,7 @@ rm -rf %{buildroot}
 %changelog
 * Fri Feb 22 2008 Than Ngo <than@redhat.com> 1.5.5-1
 - 1.5.5
+- uses system libpng/zlib
 
 * Tue Jan 08 2008 Than Ngo <than@redhat.com> 1.5.4-1
 - 1.5.4
