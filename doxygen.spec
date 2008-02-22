@@ -3,7 +3,7 @@
 
 Summary: A documentation system for C/C++.
 Name: doxygen
-Version: 1.5.4
+Version: 1.5.5
 Release: 1%{?dist}
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
@@ -11,6 +11,7 @@ Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 Patch0: doxygen-1.4.3-config.patch
 Patch2: doxygen-1.2.18-libdir.patch
 Patch3: doxygen-1.2.18-libdir64.patch
+Patch4: doxygen-1.5.5-system-png.patch
 
 Group: Development/Tools
 License: GPL
@@ -23,6 +24,7 @@ BuildRequires: ghostscript
 BuildRequires: gettext
 BuildRequires: flex
 BuildRequires: bison
+BuildRequires: libpng-devel
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -54,6 +56,7 @@ are used by doxygen.
 %else
 %patch2 -p1 -b .libdir
 %endif
+%patch4 -p1 -b .system-png
 
 %build
 %if %{with_qt}
@@ -101,6 +104,10 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Fri Feb 22 2008 Than Ngo <than@redhat.com> 1.5.5-1
+- 1.5.5
+- use system libpng/zlib
+
 * Tue Jan 08 2008 Than Ngo <than@redhat.com> 1.5.4-1
 - 1.5.4
 
