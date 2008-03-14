@@ -4,7 +4,7 @@
 Summary: A documentation system for C/C++.
 Name: doxygen
 Version: 1.5.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 
@@ -12,6 +12,9 @@ Patch0: doxygen-1.4.3-config.patch
 Patch2: doxygen-1.2.18-libdir.patch
 Patch3: doxygen-1.2.18-libdir64.patch
 Patch4: doxygen-1.5.5-system-png.patch
+
+# upstream patches
+Patch100: doxygen-1.5.5-brokenpaths.patch
 
 Group: Development/Tools
 License: GPL
@@ -57,6 +60,9 @@ are used by doxygen.
 %patch2 -p1 -b .libdir
 %endif
 %patch4 -p1 -b .system-png
+
+# upstream patches
+%patch100 -p1 -b .brokenpaths
 
 %build
 %if %{with_qt}
@@ -104,6 +110,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Fri Mar 14 2008 Than Ngo <than@redhat.com> 1.5.5-3
+- apply patch to not break partial include paths, thanks to Tim Niemueller
+
 * Wed Feb 20 2008 Than Ngo <than@redhat.com> 1.5.5-2
 - apply patch to make doxygen using system libpng/zlib
 

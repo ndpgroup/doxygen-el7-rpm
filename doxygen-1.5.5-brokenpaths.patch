@@ -1,0 +1,12 @@
+diff -urN doxygen-1.5.5/src/util.cpp doxygen-1.5.5.brokenpaths/src/util.cpp
+--- doxygen-1.5.5/src/util.cpp	2008-01-19 16:54:27.000000000 +0100
++++ doxygen-1.5.5.brokenpaths/src/util.cpp	2008-03-14 16:45:47.000000000 +0100
+@@ -4468,7 +4468,7 @@
+       QCString pathStripped = stripFromIncludePath(path);
+       for (fni.toFirst();(fd=fni.current());++fni)
+       {
+-        QCString fdStripPath = stripFromIncludePath(fd->getPath());
++        QCString fdStripPath = stripFromIncludePath(fd->getPath().right(path.length()));
+         if (path.isEmpty() || fdStripPath==pathStripped) 
+         { 
+           count++; 
