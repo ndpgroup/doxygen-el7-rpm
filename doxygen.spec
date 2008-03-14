@@ -43,7 +43,7 @@ source files.
 Summary: A GUI for creating and editing configuration files.
 Group: User Interface/X
 Requires: %{name} = %{epoch}:%{version}
-BuildPrereq: qt-devel => %{qt_version}
+BuildRequires: qt3-devel => %{qt_version}
 
 %description doxywizard
 Doxywizard is a GUI for creating and editing configuration files that
