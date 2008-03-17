@@ -1,4 +1,4 @@
-%define qt_version 1:3.3.8
+%define qt_version 3.3.8
 %{!?with_qt:%define with_qt 1}
 
 Summary: A documentation system for C/C++.
