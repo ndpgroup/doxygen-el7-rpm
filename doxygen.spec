@@ -1,3 +1,5 @@
+%define _default_patch_fuzz 2
+
 %define qt_version 3.3.8
 %{!?with_qt:%define with_qt 1}
 
