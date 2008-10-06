@@ -3,8 +3,8 @@
 
 Summary: A documentation system for C/C++.
 Name: doxygen
-Version: 1.5.6
-Release: 3%{?dist}
+Version: 1.5.7.1
+Release: 1%{?dist}
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 
@@ -105,6 +105,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Mon Oct 06 2008 Than Ngo <than@redhat.com> 1.5.7.1-1
+- 1.5.7.1
+
 * Wed Jul 16 2008 Tom "spot" Callaway <tcallawa@redhat.com> 1.5.6-3
 - fix license tag
 
