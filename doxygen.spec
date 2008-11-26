@@ -1,10 +1,12 @@
+%define _default_patch_fuzz 2
+
 %define qt_version 3.3.8
 %{!?with_qt:%define with_qt 1}
 
 Summary: A documentation system for C/C++.
 Name: doxygen
-Version: 1.5.6
-Release: 2%{?dist}
+Version: 1.5.7.1
+Release: 1%{?dist}
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 
@@ -14,7 +16,8 @@ Patch3: doxygen-1.2.18-libdir64.patch
 Patch4: doxygen-1.5.5-system-png.patch
 
 Group: Development/Tools
-License: GPL
+# No version is specified.
+License: GPL+
 Url: http://www.stack.nl/~dimitri/doxygen/index.html
 
 BuildRequires: perl
@@ -104,7 +107,16 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
-* Mon May 19 2008 Than Ngo <than@redhat.com> 1.5.6-2
+* Mon Oct 06 2008 Than Ngo <than@redhat.com> 1.5.7.1-1
+- 1.5.7.1
+
+* Wed Jul 16 2008 Tom "spot" Callaway <tcallawa@redhat.com> 1.5.6-3
+- fix license tag
+
+* Wed May 21 2008 Than Ngo <than@redhat.com> 1.5.6-2
+- rebuild
+
+* Mon May 19 2008 Than Ngo <than@redhat.com> 1.5.6-1
 - 1.5.6
 
 * Fri Mar 14 2008 Than Ngo <than@redhat.com> 1.5.5-3
