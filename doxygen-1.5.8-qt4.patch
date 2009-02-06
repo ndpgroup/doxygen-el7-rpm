@@ -1,0 +1,51 @@
+diff -up doxygen-1.5.8/configure.qt4 doxygen-1.5.8/configure
+--- doxygen-1.5.8/configure.qt4	2008-12-26 20:22:39.000000000 +0100
++++ doxygen-1.5.8/configure	2009-02-06 11:00:44.000000000 +0100
+@@ -268,7 +268,7 @@ if test "$f_wizard" = YES; then
+   if test -z "$QTDIR"; then
+     echo "  QTDIR environment variable not set!"
+     echo -n "  Checking for Qt..."
+-    for d in /usr/{lib,share,qt}/{qt-4,qt4,qt,qt*,4}; do
++    for d in /usr/{lib,lib64,share,qt}/{qt-4,qt4,qt,qt*,4}; do
+       if test -x "$d/bin/qmake"; then
+         QTDIR=$d
+       fi
+@@ -485,6 +485,7 @@ INSTTOOL  = $f_insttool
+ DOXYDOCS  = ..
+ DOCDIR    = $f_docdir
+ QTDIR     = $QTDIR
++MAN1DIR    = share/man/man1
+ EOF
+ 
+ if test "$f_dot" != NO; then
+diff -up doxygen-1.5.8/addon/doxywizard/Makefile.in.orig doxygen-1.5.8/addon/doxywizard/Makefile.in
+--- doxygen-1.5.8/addon/doxywizard/Makefile.in.orig	2009-02-06 14:55:30.000000000 +0100
++++ doxygen-1.5.8/addon/doxywizard/Makefile.in	2009-02-06 14:56:08.000000000 +0100
+@@ -29,11 +29,11 @@ distclean: Makefile.doxywizard
+ 	$(RM) Makefile.doxywizard
+ 
+ install:
+-	$(INSTTOOL) -d $(INSTALL)/bin	
+-	$(INSTTOOL) -m 755 ../../bin/doxywizard $(INSTALL)/bin	
+-	$(INSTTOOL) -d $(INSTALL)/$(MAN1DIR)
++	$(INSTTOOL) -d $(DESTDIR)$(INSTALL)/bin	
++	$(INSTTOOL) -m 755 ../../bin/doxywizard $(DESTDIR)$(INSTALL)/bin	
++	$(INSTTOOL) -d $(DESTDIR)$(INSTALL)/$(MAN1DIR)
+ 	cat ../../doc/doxywizard.1 | sed -e "s/DATE/$(DATE)/g" -e "s/VERSION/$(VERSION)/g" > doxywizard.1
+-	$(INSTTOOL) -m 644 doxywizard.1 $(INSTALL)/$(MAN1DIR)/doxywizard.1
++	$(INSTTOOL) -m 644 doxywizard.1 $(DESTDIR)$(INSTALL)/$(MAN1DIR)/doxywizard.1
+ 	rm doxywizard.1
+ 
+ FORCE:
+diff -up doxygen-1.5.8/Makefile.in.orig doxygen-1.5.8/Makefile.in
+--- doxygen-1.5.8/Makefile.in.orig	2009-02-06 15:00:41.000000000 +0100
++++ doxygen-1.5.8/Makefile.in	2009-02-06 15:00:54.000000000 +0100
+@@ -44,8 +44,6 @@ distclean: clean
+ 
+ DATE=$(shell date "+%B %Y")
+ 
+-MAN1DIR = man/man1
+-
+ install: doxywizard_install 
+ 	$(INSTTOOL) -d $(DESTDIR)/$(INSTALL)/bin
+ 	$(INSTTOOL) -m 755 bin/doxygen    $(DESTDIR)/$(INSTALL)/bin
