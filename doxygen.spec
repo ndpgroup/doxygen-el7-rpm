@@ -66,6 +66,7 @@ unset QTDIR
 
 # workaround for "Error: operand out of range", language.cpp needs to be splitted
 %ifarch ppc64
+make -C src Makefile.libdoxygen
 sed -i -e "s|-o ../objects/language.o|-fno-merge-constants -fsection-anchors -o ../objects/language.o|" src/Makefile.libdoxygen
 %endif
 
