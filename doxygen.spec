@@ -9,8 +9,9 @@ Version: 1.5.8
 Release: 1%{?dist}
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
-Patch1: doxygen-1.5.5-system-png.patch
+Patch1: doxygen-1.5.8-config.patch
 Patch2: doxygen-1.5.8-qt4.patch
+Patch3: doxygen-1.5.5-system-png.patch
 Group: Development/Tools
 # No version is specified.
 License: GPL+
@@ -48,8 +49,9 @@ are used by doxygen.
 
 %prep
 %setup -q
-%patch1 -p1 -b .system-png
+%patch1 -p1 -b .config
 %patch2 -p1 -b .qt4
+%patch3 -p1 -b .system-png
 
 %build
 unset QTDIR
