@@ -1,20 +1,17 @@
 %define _default_patch_fuzz 2
 
-%define qt_version 3.3.8
+%define qt_version 4.4
 %{!?with_qt:%define with_qt 1}
 
 Summary: A documentation system for C/C++.
 Name: doxygen
-Version: 1.5.7.1
+Version: 1.5.9
 Release: 1%{?dist}
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
-
-Patch0: doxygen-1.5.6-config.patch
-Patch2: doxygen-1.2.18-libdir.patch
-Patch3: doxygen-1.2.18-libdir64.patch
-Patch4: doxygen-1.5.5-system-png.patch
-
+Patch1: doxygen-1.5.8-config.patch
+Patch2: doxygen-1.5.8-qt4.patch
+Patch3: doxygen-1.5.5-system-png.patch
 Group: Development/Tools
 # No version is specified.
 License: GPL+
@@ -43,7 +40,7 @@ source files.
 Summary: A GUI for creating and editing configuration files.
 Group: User Interface/X
 Requires: %{name} = %{epoch}:%{version}
-BuildRequires: qt3-devel => %{qt_version}
+BuildRequires: qt-devel => %{qt_version}
 
 %description doxywizard
 Doxywizard is a GUI for creating and editing configuration files that
@@ -52,28 +49,27 @@ are used by doxygen.
 
 %prep
 %setup -q
-%patch0 -p1 -b .config
 
-%if "%{_lib}" != "lib"
-%patch3 -p1 -b .libdir
-%else
-%patch2 -p1 -b .libdir
-%endif
-%patch4 -p1 -b .system-png
+%patch1 -p1 -b .config
+%patch2 -p1 -b .qt4
+%patch3 -p1 -b .system-png
 
 %build
-%if %{with_qt}
-QTDIR="" && . /etc/profile.d/qt.sh
-%endif
+unset QTDIR
 
 ./configure \
    --prefix %{_prefix} \
    --shared \
-   --release \
 %if %{with_qt}
    --with-doxywizard \
 %endif
-   --install %{_bindir}/install
+   --release
+
+# workaround for "Error: operand out of range", language.cpp needs to be splitted
+%ifarch ppc64
+make -C src Makefile.libdoxygen
+sed -i -e "s|-o ../objects/language.o|-fno-merge-constants -fsection-anchors -o ../objects/language.o|" src/Makefile.libdoxygen
+%endif
 
 make %{?_smp_mflags} all
 make docs
@@ -81,7 +77,7 @@ make docs
 %install
 rm -rf %{buildroot}
 
-make install INSTALL=%{buildroot}%{_prefix}
+make install DESTDIR=%{buildroot}
 
 %if !%{with_qt}
   rm -rf %{buildroot}%{_mandir}/man1/doxywizard*
@@ -107,6 +103,15 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Fri Jul 03 2009 Than Ngo <than@redhat.com> - 1.5.9-1
+- 1.5.9
+
+* Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:1.5.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
+
+* Thu Feb 05 2009 Than Ngo <than@redhat.com> 1.5.8-1
+- 1.5.8
+
 * Mon Oct 06 2008 Than Ngo <than@redhat.com> 1.5.7.1-1
 - 1.5.7.1
 
