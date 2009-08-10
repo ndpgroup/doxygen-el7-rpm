@@ -6,7 +6,7 @@
 Summary: A documentation system for C/C++.
 Name: doxygen
 Version: 1.5.9
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 Patch1: doxygen-1.5.8-config.patch
@@ -103,6 +103,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Mon Aug 10 2009 Ville Skyttä <ville.skytta at iki.fi> - 1:1.5.9-3
+- Convert specfile to UTF-8.
+
 * Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:1.5.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
@@ -322,7 +325,7 @@ rm -rf %{buildroot}
 * Wed Mar 14 2001 Jeff Johnson <jbj@redhat.com>
 - update to 1.2.6
 
-* Wed Feb 28 2001 Trond Eivind Glomsr�d <teg@redhat.com>
+* Wed Feb 28 2001 Trond Eivind Glomsrød <teg@redhat.com>
 - rebuild
 
 * Tue Dec 26 2000 Than Ngo <than@redhat.com>
