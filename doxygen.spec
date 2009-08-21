@@ -5,17 +5,15 @@
 
 Summary: A documentation system for C/C++.
 Name: doxygen
-Version: 1.5.9
-Release: 3%{?dist}
+Version: 1.6.0
+Release: 1%{?dist}
 Epoch: 1
+Url: http://www.stack.nl/~dimitri/doxygen/index.html
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
-Patch1: doxygen-1.5.8-config.patch
-Patch2: doxygen-1.5.8-qt4.patch
-Patch3: doxygen-1.5.5-system-png.patch
+Patch1: doxygen-1.6.0-config.patch
 Group: Development/Tools
 # No version is specified.
 License: GPL+
-Url: http://www.stack.nl/~dimitri/doxygen/index.html
 
 BuildRequires: perl
 BuildRequires: texlive-dvips
@@ -51,8 +49,6 @@ are used by doxygen.
 %setup -q
 
 %patch1 -p1 -b .config
-%patch2 -p1 -b .qt4
-%patch3 -p1 -b .system-png
 
 %build
 unset QTDIR
@@ -103,6 +99,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Fri Aug 21 2009 Than Ngo <than@redhat.com> - 1.6.0-1
+- 1.6.0
+
 * Mon Aug 10 2009 Ville Skyttä <ville.skytta at iki.fi> - 1:1.5.9-3
 - Convert specfile to UTF-8.
 
