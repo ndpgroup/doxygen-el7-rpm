@@ -6,11 +6,12 @@
 Summary: A documentation system for C/C++.
 Name: doxygen
 Version: 1.6.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
 Url: http://www.stack.nl/~dimitri/doxygen/index.html
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 Patch1: doxygen-1.6.0-config.patch
+Patch2: doxygen-1.6.0-timestamp.patch
 Group: Development/Tools
 # No version is specified.
 License: GPL+
@@ -49,6 +50,7 @@ are used by doxygen.
 %setup -q
 
 %patch1 -p1 -b .config
+%patch2 -p1 -b .timestamp
 
 %build
 unset QTDIR
@@ -99,6 +101,10 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Mon Aug 24 2009 Than Ngo <than@redhat.com> - 1.6.0-2
+- fix #516339, allow to enable/disable timstamp to avoid the multilib issue
+  HTMP_TIMESTAMP is disable by default
+
 * Fri Aug 21 2009 Than Ngo <than@redhat.com> - 1.6.0-1
 - 1.6.0
 
