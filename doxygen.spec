@@ -5,17 +5,16 @@
 
 Summary: A documentation system for C/C++.
 Name: doxygen
-Version: 1.5.9
+Version: 1.6.1
 Release: 1%{?dist}
 Epoch: 1
+Url: http://www.stack.nl/~dimitri/doxygen/index.html
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
-Patch1: doxygen-1.5.8-config.patch
-Patch2: doxygen-1.5.8-qt4.patch
-Patch3: doxygen-1.5.5-system-png.patch
+Patch1: doxygen-1.6.0-config.patch
+Patch2: doxygen-1.6.0-timestamp.patch
 Group: Development/Tools
 # No version is specified.
 License: GPL+
-Url: http://www.stack.nl/~dimitri/doxygen/index.html
 
 BuildRequires: perl
 BuildRequires: texlive-dvips
@@ -51,8 +50,7 @@ are used by doxygen.
 %setup -q
 
 %patch1 -p1 -b .config
-%patch2 -p1 -b .qt4
-%patch3 -p1 -b .system-png
+%patch2 -p1 -b .timestamp
 
 %build
 unset QTDIR
@@ -103,6 +101,22 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Tue Aug 25 2009 Than Ngo <than@redhat.com> - 1.6.1-1
+- 1.6.1
+
+* Mon Aug 24 2009 Than Ngo <than@redhat.com> - 1.6.0-2
+- fix #516339, allow to enable/disable timstamp to avoid the multilib issue
+  HTMP_TIMESTAMP is disable by default
+
+* Fri Aug 21 2009 Than Ngo <than@redhat.com> - 1.6.0-1
+- 1.6.0
+
+* Mon Aug 10 2009 Ville Skyttä <ville.skytta at iki.fi> - 1:1.5.9-3
+- Convert specfile to UTF-8.
+
+* Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:1.5.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
+
 * Fri Jul 03 2009 Than Ngo <than@redhat.com> - 1.5.9-1
 - 1.5.9
 
@@ -319,7 +333,7 @@ rm -rf %{buildroot}
 * Wed Mar 14 2001 Jeff Johnson <jbj@redhat.com>
 - update to 1.2.6
 
-* Wed Feb 28 2001 Trond Eivind Glomsr�d <teg@redhat.com>
+* Wed Feb 28 2001 Trond Eivind Glomsrød <teg@redhat.com>
 - rebuild
 
 * Tue Dec 26 2000 Than Ngo <than@redhat.com>
