@@ -3,10 +3,10 @@
 %define qt_version 4.4
 %{!?with_qt:%define with_qt 1}
 
-Summary: A documentation system for C/C++.
+Summary: A documentation system for C/C++
 Name: doxygen
 Version: 1.6.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
 Url: http://www.stack.nl/~dimitri/doxygen/index.html
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
@@ -81,6 +81,13 @@ make install DESTDIR=%{buildroot}
   rm -rf %{buildroot}%{_mandir}/man1/doxywizard*
 %endif
 
+# convert into utf-8
+iconv --from=ISO-8859-1 --to=UTF-8 LANGUAGE.HOWTO > LANGUAGE.HOWTO.new
+touch -r LANGUAGE.HOWTO.new && mv LANGUAGE.HOWTO.new LANGUAGE.HOWTO
+
+# drop -x bit
+find examples -type f | xargs chmod -x
+
 %clean
 rm -rf %{buildroot}
 
@@ -101,6 +108,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Fri Dec 11 2009 Than Ngo <than@redhat.com> - 1:1.6.1-2
+- bz#225709, merged review 
+
 * Tue Aug 25 2009 Than Ngo <than@redhat.com> - 1.6.1-1
 - 1.6.1
 
