@@ -1,12 +1,9 @@
 %define _default_patch_fuzz 2
 
-%define qt_version 4.4
-%{!?with_qt:%define with_qt 1}
-
-Summary: A documentation system for C/C++.
+Summary: A documentation system for C/C++
 Name: doxygen
 Version: 1.6.1
-Release: 1%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 Url: http://www.stack.nl/~dimitri/doxygen/index.html
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
@@ -34,17 +31,15 @@ documentation is extracted directly from the sources. Doxygen can
 also be configured to extract the code structure from undocumented
 source files.
 
-%if %{with_qt}
 %package doxywizard
-Summary: A GUI for creating and editing configuration files.
+Summary: A GUI for creating and editing configuration files
 Group: User Interface/X
 Requires: %{name} = %{epoch}:%{version}
-BuildRequires: qt-devel => %{qt_version}
+BuildRequires: qt-devel => 4.4
 
 %description doxywizard
 Doxywizard is a GUI for creating and editing configuration files that
 are used by doxygen.
-%endif
 
 %prep
 %setup -q
@@ -58,9 +53,7 @@ unset QTDIR
 ./configure \
    --prefix %{_prefix} \
    --shared \
-%if %{with_qt}
    --with-doxywizard \
-%endif
    --release
 
 # workaround for "Error: operand out of range", language.cpp needs to be splitted
@@ -77,9 +70,15 @@ rm -rf %{buildroot}
 
 make install DESTDIR=%{buildroot}
 
-%if !%{with_qt}
-  rm -rf %{buildroot}%{_mandir}/man1/doxywizard*
-%endif
+# convert into utf-8
+iconv --from=ISO-8859-1 --to=UTF-8 LANGUAGE.HOWTO > LANGUAGE.HOWTO.new
+touch -r LANGUAGE.HOWTO LANGUAGE.HOWTO.new
+mv LANGUAGE.HOWTO.new LANGUAGE.HOWTO
+
+# drop -x bit
+find examples -type f | xargs chmod -x
+
+sed -i -e "s|#!perl|#! /usr/bin/perl|" examples/tag/html/installdox
 
 %clean
 rm -rf %{buildroot}
@@ -93,14 +92,18 @@ rm -rf %{buildroot}
 %{_mandir}/man1/doxygen.1*
 %{_mandir}/man1/doxytag.1*
 
-%if %{with_qt}
 %files doxywizard
 %defattr(-,root,root)
 %{_bindir}/doxywizard
 %{_mandir}/man1/doxywizard*
-%endif
 
 %changelog
+* Fri Dec 18 2009 Than Ngo <than@redhat.com> - 1:1.6.1-3
+- bz#225709, merged review
+
+* Fri Dec 11 2009 Than Ngo <than@redhat.com> - 1:1.6.1-2
+- bz#225709, merged review 
+
 * Tue Aug 25 2009 Than Ngo <than@redhat.com> - 1.6.1-1
 - 1.6.1
 
