@@ -1,9 +1,7 @@
-%define _default_patch_fuzz 2
-
 Summary: A documentation system for C/C++
 Name: doxygen
 Version: 1.6.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 1
 Url: http://www.stack.nl/~dimitri/doxygen/index.html
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
@@ -98,6 +96,9 @@ rm -rf %{buildroot}
 %{_mandir}/man1/doxywizard*
 
 %changelog
+* Fri Dec 18 2009 Than Ngo <than@redhat.com> - 1:1.6.1-4
+- drop _default_patch_fuzz
+
 * Fri Dec 18 2009 Than Ngo <than@redhat.com> - 1:1.6.1-3
 - bz#225709, merged review
 
