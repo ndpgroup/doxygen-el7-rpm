@@ -6,7 +6,7 @@ Epoch: 1
 Url: http://www.stack.nl/~dimitri/doxygen/index.html
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 Patch1: doxygen-1.6.0-config.patch
-Patch2: doxygen-1.6.0-timestamp.patch
+Patch2: doxygen-1.6.2-timestamp.patch
 Group: Development/Tools
 # No version is specified.
 License: GPL+
