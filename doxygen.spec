@@ -1,7 +1,7 @@
 Summary: A documentation system for C/C++
 Name: doxygen
-Version: 1.6.1
-Release: 4%{?dist}
+Version: 1.6.2
+Release: 1%{?dist}
 Epoch: 1
 Url: http://www.stack.nl/~dimitri/doxygen/index.html
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
@@ -96,6 +96,9 @@ rm -rf %{buildroot}
 %{_mandir}/man1/doxywizard*
 
 %changelog
+* Mon Jan 04 2010 Than Ngo <than@redhat.com> - 1:1.6.2-1
+- 1.6.2
+
 * Fri Dec 18 2009 Than Ngo <than@redhat.com> - 1:1.6.1-4
 - drop _default_patch_fuzz
 
