@@ -1,12 +1,17 @@
 Summary: A documentation system for C/C++
 Name: doxygen
 Version: 1.6.2
-Release: 1%{?dist}
+Release: 1.svn20100208%{?dist}
 Epoch: 1
 Url: http://www.stack.nl/~dimitri/doxygen/index.html
-Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
+# Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
+# The source was created for a subversion checkout:
+# svn co http://doxygen.svn.sourceforge.net/svnroot/doxygen/tags/Release_1_6_2_20100208 doxygen-1.6.2-20100208
+Source0: %{name}-%{version}-20100208.tar.gz
 Patch1: doxygen-1.6.0-config.patch
 Patch2: doxygen-1.6.2-timestamp.patch
+Patch3: doxywizard-missing-config.patch
+
 Group: Development/Tools
 # No version is specified.
 License: GPL+
@@ -40,10 +45,11 @@ Doxywizard is a GUI for creating and editing configuration files that
 are used by doxygen.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}-20100208
 
 %patch1 -p1 -b .config
 %patch2 -p1 -b .timestamp
+%patch3 -p1 -b .wizconfig
 
 %build
 unset QTDIR
@@ -96,6 +102,9 @@ rm -rf %{buildroot}
 %{_mandir}/man1/doxywizard*
 
 %changelog
+* Fri Feb 12 2010 Than Ngo <than@redhat.com> - 1.6.2-1.svn20100208
+- fix #555526, snapshot 1.6.2-20100208
+
 * Mon Jan 04 2010 Than Ngo <than@redhat.com> - 1:1.6.2-1
 - 1.6.2
 
