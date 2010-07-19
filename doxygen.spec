@@ -1,12 +1,11 @@
 Summary: A documentation system for C/C++
 Name: doxygen
-Version: 1.6.3
+Version: 1.7.1
 Release: 1%{?dist}
 Epoch: 1
 Url: http://www.stack.nl/~dimitri/doxygen/index.html
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
-
-Patch1: doxygen-1.6.0-config.patch
+Patch1: doxygen-1.7.1-config.patch
 Patch2: doxygen-1.6.2-timestamp.patch
 
 Group: Development/Tools
@@ -42,7 +41,7 @@ Doxywizard is a GUI for creating and editing configuration files that
 are used by doxygen.
 
 %prep
-%setup -q -n %{name}-%{version}-20100208
+%setup -q
 
 %patch1 -p1 -b .config
 %patch2 -p1 -b .timestamp
@@ -98,8 +97,8 @@ rm -rf %{buildroot}
 %{_mandir}/man1/doxywizard*
 
 %changelog
-* Tue Feb 23 2010 Than Ngo <than@redhat.com> - 1.6.3-1
-- 1.6.3
+* Mon Jul 19 2010 Than Ngo <than@redhat.com> - 1.7.1-1
+- 1.7.1
 
 * Fri Feb 12 2010 Than Ngo <than@redhat.com> - 1.6.2-1.svn20100208
 - fix #555526, snapshot 1.6.2-20100208
