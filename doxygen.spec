@@ -1,12 +1,16 @@
 Summary: A documentation system for C/C++
 Name: doxygen
 Version: 1.7.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
 Url: http://www.stack.nl/~dimitri/doxygen/index.html
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 Patch1: doxygen-1.7.1-config.patch
 Patch2: doxygen-1.6.2-timestamp.patch
+# debian patch
+Patch3: doxygen-dot-crash.patch
+Patch4: doxygen-1.7.1-bz#627553.patch
+Patch5: doxygen-1.7.1-doxygen#625531.patch
 
 Group: Development/Tools
 # No version is specified.
@@ -45,6 +49,9 @@ are used by doxygen.
 
 %patch1 -p1 -b .config
 %patch2 -p1 -b .timestamp
+%patch3 -p1 -b .crash
+%patch4 -p1 -b .bz#627553
+%patch5 -p1 -b .doxygen#625531
 
 %build
 unset QTDIR
@@ -97,6 +104,11 @@ rm -rf %{buildroot}
 %{_mandir}/man1/doxywizard*
 
 %changelog
+* Wed Sep 08 2010 Than Ngo <than@redhat.com> - 1:1.7.1-2
+- bz#629286, apply patch to fix broken thread handling
+- bz#627553, #define in included file in different directory not handled properly
+- Inherited documentation doesn't work in case of multiple inheritance
+
 * Mon Jul 19 2010 Than Ngo <than@redhat.com> - 1.7.1-1
 - 1.7.1
 
