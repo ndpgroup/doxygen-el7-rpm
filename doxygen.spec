@@ -8,7 +8,7 @@ Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 Patch1: doxygen-1.7.1-config.patch
 Patch2: doxygen-1.6.2-timestamp.patch
 # debian patch
-Patch3: doxygen-dot-crash.patch
+Patch3: doxygen-1.7.1-dot-crash.patch
 Patch4: doxygen-1.7.1-bz#627553.patch
 Patch5: doxygen-1.7.1-doxygen#625531.patch
 
