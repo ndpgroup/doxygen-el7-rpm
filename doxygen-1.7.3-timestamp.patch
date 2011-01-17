@@ -1,7 +1,6 @@
-diff -up doxygen-1.6.2/src/configoptions.cpp.timestamp doxygen-1.6.2/src/configoptions.cpp
---- doxygen-1.6.2/src/configoptions.cpp.timestamp	2009-12-28 11:39:11.000000000 +0100
-+++ doxygen-1.6.2/src/configoptions.cpp	2010-01-04 11:58:33.000000000 +0100
-@@ -1088,6 +1088,14 @@ void addConfigOptions(Config *cfg)
+--- doxygen-1.7.3.ORIG/src/configoptions.cpp	2011-01-14 22:32:45.571915149 +0100
++++ doxygen-1.7.3.ORIG/src/configoptions.cpp	2011-01-14 22:36:27.083723068 +0100
+@@ -1128,6 +1128,14 @@ 
    cs->setWidgetType(ConfigString::File);
    cs->addDependency("GENERATE_HTML");
    //----
@@ -16,10 +15,9 @@ diff -up doxygen-1.6.2/src/configoptions.cpp.timestamp doxygen-1.6.2/src/configo
    cs = cfg->addString(
                   "HTML_STYLESHEET",
                   "The HTML_STYLESHEET tag can be used to specify a user-defined cascading\n"
-diff -up doxygen-1.6.2/src/config.xml.timestamp doxygen-1.6.2/src/config.xml
---- doxygen-1.6.2/src/config.xml.timestamp	2009-12-28 11:38:55.000000000 +0100
-+++ doxygen-1.6.2/src/config.xml	2010-01-04 11:58:33.000000000 +0100
-@@ -761,6 +761,10 @@ The HTML_FOOTER tag can be used to speci
+--- doxygen-1.7.3.ORIG/src/config.xml	2011-01-14 22:32:45.465909531 +0100
++++ doxygen-1.7.3.ORIG/src/config.xml	2011-01-14 22:38:07.124095918 +0100
+@@ -789,6 +789,11 @@ 
  each generated HTML page. If it is left blank doxygen will generate a 
  standard footer. 
  ' defval='' depends='GENERATE_HTML'/>
@@ -27,21 +25,22 @@ diff -up doxygen-1.6.2/src/config.xml.timestamp doxygen-1.6.2/src/config.xml
 +If the HTML_TIMESTAMP tag is set to YES then the generated HTML
 +documentation will contain the timesstamp.
 +' defval='' depends='GENERATE_HTML'/>
++
      <option type='string' id='HTML_STYLESHEET' format='file' docs='
  The HTML_STYLESHEET tag can be used to specify a user-defined cascading 
  style sheet that is used by each HTML page. It can be used to 
-diff -up doxygen-1.6.2/src/htmlgen.cpp.timestamp doxygen-1.6.2/src/htmlgen.cpp
---- doxygen-1.6.2/src/htmlgen.cpp.timestamp	2009-12-21 11:24:22.000000000 +0100
-+++ doxygen-1.6.2/src/htmlgen.cpp	2010-01-04 12:04:31.000000000 +0100
-@@ -54,6 +54,7 @@ static const char search_script[]=
+--- doxygen-1.7.3.ORIG/src/htmlgen.cpp	2011-01-14 22:32:45.474910008 +0100
++++ doxygen-1.7.3.ORIG/src/htmlgen.cpp	2011-01-14 22:40:18.025120209 +0100
+@@ -61,7 +61,7 @@ 
  
  static QCString g_header;
  static QCString g_footer;
+-
 +static bool timestamp=false;
- 
  //------------------------- Pictures for the Tabs ------------------------
  
-@@ -693,6 +694,8 @@ void HtmlGenerator::init()
+ // active
+@@ -854,6 +854,8 @@ 
    if (!Config_getString("HTML_FOOTER").isEmpty()) 
    {
      g_footer=fileToString(Config_getString("HTML_FOOTER"));
@@ -50,12 +49,12 @@ diff -up doxygen-1.6.2/src/htmlgen.cpp.timestamp doxygen-1.6.2/src/htmlgen.cpp
      //printf("g_footer='%s'\n",g_footer.data());
    }
    createSubDirs(d);
-@@ -932,7 +935,7 @@ static void writePageFooter(QTextStream 
-     if (timeStamp)
-     {
-       t << theTranslator->trGeneratedAt(
--          dateToString(TRUE),
-+          dateToString(timestamp),
-           Config_getString("PROJECT_NAME")
-          );
-     }
+@@ -1208,7 +1210,7 @@ 
+   if (timeStamp)
+   {
+     result += theTranslator->trGeneratedAt(
+-               dateToString(TRUE),
++               dateToString(timestamp),
+                Config_getString("PROJECT_NAME")
+               );
+   }

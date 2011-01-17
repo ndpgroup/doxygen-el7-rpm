@@ -1,12 +1,12 @@
 Summary: A documentation system for C/C++
 Name: doxygen
-Version: 1.7.2
-Release: 2%{?dist}
+Version: 1.7.3
+Release: 1%{?dist}
 Epoch: 1
 Url: http://www.stack.nl/~dimitri/doxygen/index.html
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 Patch1: doxygen-1.7.1-config.patch
-Patch2: doxygen-1.6.2-timestamp.patch
+Patch2: doxygen-1.7.3-timestamp.patch
 
 Group: Development/Tools
 # No version is specified.
@@ -97,6 +97,10 @@ rm -rf %{buildroot}
 %{_mandir}/man1/doxywizard*
 
 %changelog
+* Mon Jan 17 2011 Than Ngo <than@redhat.com> - 1.7.3-1
+- 1.7.3
+- bz#661107
+
 * Fri Nov 12 2010 Rex Dieter <rdieter@fedoraproject.org> - 1.7.2-2
 - Wrong Buildrequire to qt-devel (#651064)
 
