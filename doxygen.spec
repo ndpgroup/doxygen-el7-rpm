@@ -1,12 +1,12 @@
 Summary: A documentation system for C/C++
 Name: doxygen
-Version: 1.7.1
+Version: 1.7.3
 Release: 1%{?dist}
 Epoch: 1
 Url: http://www.stack.nl/~dimitri/doxygen/index.html
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 Patch1: doxygen-1.7.1-config.patch
-Patch2: doxygen-1.6.2-timestamp.patch
+Patch2: doxygen-1.7.3-timestamp.patch
 
 Group: Development/Tools
 # No version is specified.
@@ -34,7 +34,7 @@ source files.
 Summary: A GUI for creating and editing configuration files
 Group: User Interface/X
 Requires: %{name} = %{epoch}:%{version}
-BuildRequires: qt-devel => 4.4
+BuildRequires: qt4-devel >= 4.4
 
 %description doxywizard
 Doxywizard is a GUI for creating and editing configuration files that
@@ -97,6 +97,21 @@ rm -rf %{buildroot}
 %{_mandir}/man1/doxywizard*
 
 %changelog
+* Mon Jan 17 2011 Than Ngo <than@redhat.com> - 1.7.3-1
+- 1.7.3
+- bz#661107
+
+* Fri Nov 12 2010 Rex Dieter <rdieter@fedoraproject.org> - 1.7.2-2
+- Wrong Buildrequire to qt-devel (#651064)
+
+* Mon Oct 11 2010 Than Ngo <than@redhat.com> - 1.7.2-1
+- 1.7.2
+
+* Wed Sep 08 2010 Than Ngo <than@redhat.com> - 1:1.7.1-2
+- bz#629286, apply patch to fix broken thread handling
+- bz#627553, #define in included file in different directory not handled properly
+- Inherited documentation doesn't work in case of multiple inheritance
+
 * Mon Jul 19 2010 Than Ngo <than@redhat.com> - 1.7.1-1
 - 1.7.1
 
