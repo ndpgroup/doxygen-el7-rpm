@@ -1,7 +1,7 @@
 Summary: A documentation system for C/C++
 Name: doxygen
-Version: 1.7.3
-Release: 2%{?dist}
+Version: 1.7.4
+Release: 1%{?dist}
 Epoch: 1
 Url: http://www.stack.nl/~dimitri/doxygen/index.html
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
@@ -97,6 +97,9 @@ rm -rf %{buildroot}
 %{_mandir}/man1/doxywizard*
 
 %changelog
+* Tue Mar 29 2011 Than Ngo <than@redhat.com> - 1.7.4-1
+- 1.7.4
+
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:1.7.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
