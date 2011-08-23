@@ -1,6 +1,7 @@
---- doxygen-1.7.3.ORIG/src/configoptions.cpp	2011-01-14 22:32:45.571915149 +0100
-+++ doxygen-1.7.3.ORIG/src/configoptions.cpp	2011-01-14 22:36:27.083723068 +0100
-@@ -1128,6 +1128,14 @@ 
+diff -up doxygen-1.7.5/src/configoptions.cpp.timestamp doxygen-1.7.5/src/configoptions.cpp
+--- doxygen-1.7.5/src/configoptions.cpp.timestamp	2011-08-03 15:54:50.000000000 +0200
++++ doxygen-1.7.5/src/configoptions.cpp	2011-08-23 12:55:56.000000000 +0200
+@@ -1173,6 +1173,14 @@ void addConfigOptions(Config *cfg)
    cs->setWidgetType(ConfigString::File);
    cs->addDependency("GENERATE_HTML");
    //----
@@ -15,9 +16,10 @@
    cs = cfg->addString(
                   "HTML_STYLESHEET",
                   "The HTML_STYLESHEET tag can be used to specify a user-defined cascading\n"
---- doxygen-1.7.3.ORIG/src/config.xml	2011-01-14 22:32:45.465909531 +0100
-+++ doxygen-1.7.3.ORIG/src/config.xml	2011-01-14 22:38:07.124095918 +0100
-@@ -789,6 +789,11 @@ 
+diff -up doxygen-1.7.5/src/config.xml.timestamp doxygen-1.7.5/src/config.xml
+--- doxygen-1.7.5/src/config.xml.timestamp	2011-08-03 15:54:48.000000000 +0200
++++ doxygen-1.7.5/src/config.xml	2011-08-23 12:55:56.000000000 +0200
+@@ -819,6 +819,11 @@ The HTML_FOOTER tag can be used to speci
  each generated HTML page. If it is left blank doxygen will generate a 
  standard footer. 
  ' defval='' depends='GENERATE_HTML'/>
@@ -29,9 +31,10 @@
      <option type='string' id='HTML_STYLESHEET' format='file' docs='
  The HTML_STYLESHEET tag can be used to specify a user-defined cascading 
  style sheet that is used by each HTML page. It can be used to 
---- doxygen-1.7.3.ORIG/src/htmlgen.cpp	2011-01-14 22:32:45.474910008 +0100
-+++ doxygen-1.7.3.ORIG/src/htmlgen.cpp	2011-01-14 22:40:18.025120209 +0100
-@@ -61,7 +61,7 @@ 
+diff -up doxygen-1.7.5/src/htmlgen.cpp.timestamp doxygen-1.7.5/src/htmlgen.cpp
+--- doxygen-1.7.5/src/htmlgen.cpp.timestamp	2011-08-01 22:10:17.000000000 +0200
++++ doxygen-1.7.5/src/htmlgen.cpp	2011-08-23 13:01:16.000000000 +0200
+@@ -88,7 +88,7 @@ static const char svgpan_script[]=
  
  static QCString g_header;
  static QCString g_footer;
@@ -40,16 +43,16 @@
  //------------------------- Pictures for the Tabs ------------------------
  
  // active
-@@ -854,6 +854,8 @@ 
-   if (!Config_getString("HTML_FOOTER").isEmpty()) 
+@@ -1072,6 +1072,8 @@ void HtmlGenerator::init()
    {
-     g_footer=fileToString(Config_getString("HTML_FOOTER"));
-+    if (Config_getBool("HTML_TIMESTAMP"))
-+      timestamp=true;
-     //printf("g_footer='%s'\n",g_footer.data());
+     g_footer = defaultHtmlFooter;
    }
++  if (Config_getBool("HTML_TIMESTAMP"))
++    timestamp=true;
    createSubDirs(d);
-@@ -1208,7 +1210,7 @@ 
+ 
+   QCString fileName=dname+"/tabs.css";
+@@ -1285,7 +1287,7 @@ QCString HtmlGenerator::writeLogoAsStrin
    if (timeStamp)
    {
      result += theTranslator->trGeneratedAt(
