@@ -1,6 +1,6 @@
 Summary: A documentation system for C/C++
 Name: doxygen
-Version: 1.7.6
+Version: 1.7.6.1
 Release: 1%{?dist}
 Epoch: 1
 Group: Development/Tools
@@ -95,6 +95,9 @@ rm -rf %{buildroot}
 %{_mandir}/man1/doxywizard*
 
 %changelog
+* Fri Dec 16 2011 Than Ngo <than@redhat.com> - 1:1.7.6.1-1
+- 1.7.6.1
+
 * Tue Dec 06 2011 Than Ngo <than@redhat.com> - 1:1.7.6-1
 - 1.7.6
 
