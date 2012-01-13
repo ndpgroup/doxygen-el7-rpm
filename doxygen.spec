@@ -1,7 +1,7 @@
 Summary: A documentation system for C/C++
 Name: doxygen
 Version: 1.7.6.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
 Group: Development/Tools
 # No version is specified.
@@ -95,6 +95,9 @@ rm -rf %{buildroot}
 %{_mandir}/man1/doxywizard*
 
 %changelog
+* Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:1.7.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+
 * Fri Dec 16 2011 Than Ngo <than@redhat.com> - 1:1.7.6.1-1
 - 1.7.6.1
 
