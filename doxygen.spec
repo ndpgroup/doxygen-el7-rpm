@@ -1,13 +1,16 @@
 Summary: A documentation system for C/C++
 Name: doxygen
 Version: 1.7.6.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 Group: Development/Tools
 # No version is specified.
 License: GPL+
 Url: http://www.stack.nl/~dimitri/doxygen/index.html
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
+# this icon is part of kdesdk
+Source1: doxywizard.png
+Source2: doxywizard.desktop
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Patch1: doxygen-1.7.1-config.patch
 Patch2: doxygen-1.7.5-timestamp.patch
@@ -77,6 +80,12 @@ find examples -type f | xargs chmod -x
 
 sed -i -e "s|#!perl|#! /usr/bin/perl|" examples/tag/html/installdox
 
+mkdir -p %{buildroot}%{_datadir}/pixmaps
+install -m 644 -p %{SOURCE1} %{buildroot}%{_datadir}/pixmaps/
+
+desktop-file-install \
+   --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
+
 %clean
 rm -rf %{buildroot}
 
@@ -93,8 +102,13 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %{_bindir}/doxywizard
 %{_mandir}/man1/doxywizard*
+%{_datadir}/applications/doxywizard.desktop
+%{_datadir}/pixmaps/
 
 %changelog
+* Wed Jan 18 2012 Than Ngo <than@redhat.com> - 1.7.6.1-3
+- bz#772523, add desktop file
+
 * Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:1.7.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
 
