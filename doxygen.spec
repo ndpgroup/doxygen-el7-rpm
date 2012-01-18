@@ -23,6 +23,7 @@ BuildRequires: ghostscript
 BuildRequires: gettext
 BuildRequires: flex
 BuildRequires: bison
+BuildRequires: desktop-file-utils
 
 %description
 Doxygen can generate an online class browser (in HTML) and/or a
