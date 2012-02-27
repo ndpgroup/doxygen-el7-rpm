@@ -1,17 +1,17 @@
 Summary: A documentation system for C/C++
 Name: doxygen
-Version: 1.7.6.1
-Release: 3%{?dist}
+Version: 1.8.0
+Release: 1%{?dist}
 Epoch: 1
 Group: Development/Tools
 # No version is specified.
 License: GPL+
 Url: http://www.stack.nl/~dimitri/doxygen/index.html
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 # this icon is part of kdesdk
 Source1: doxywizard.png
 Source2: doxywizard.desktop
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Patch1: doxygen-1.7.1-config.patch
 Patch2: doxygen-1.7.5-timestamp.patch
 
@@ -76,11 +76,6 @@ iconv --from=ISO-8859-1 --to=UTF-8 LANGUAGE.HOWTO > LANGUAGE.HOWTO.new
 touch -r LANGUAGE.HOWTO LANGUAGE.HOWTO.new
 mv LANGUAGE.HOWTO.new LANGUAGE.HOWTO
 
-# drop -x bit
-find examples -type f | xargs chmod -x
-
-sed -i -e "s|#!perl|#! /usr/bin/perl|" examples/tag/html/installdox
-
 mkdir -p %{buildroot}%{_datadir}/pixmaps
 install -m 644 -p %{SOURCE1} %{buildroot}%{_datadir}/pixmaps/
 
@@ -95,23 +90,21 @@ rm -rf %{buildroot}
 %doc LANGUAGE.HOWTO README examples
 %doc html
 %{_bindir}/doxygen
-%{_bindir}/doxytag
 %{_mandir}/man1/doxygen.1*
-%{_mandir}/man1/doxytag.1*
 
 %files doxywizard
 %defattr(-,root,root)
 %{_bindir}/doxywizard
 %{_mandir}/man1/doxywizard*
 %{_datadir}/applications/doxywizard.desktop
-%{_datadir}/pixmaps/
+%{_datadir}/pixmaps/*
 
 %changelog
-* Wed Jan 18 2012 Than Ngo <than@redhat.com> - 1.7.6.1-3
-- bz#772523, add desktop file
+* Mon Feb 27 2012 Than Ngo <than@redhat.com> - 1:1.8.0-1
+- 1.8.0
 
-* Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:1.7.6.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+* Wed Jan 18 2012 Than Ngo <than@redhat.com> - 1:1.7.6.1-2
+- bz#772523, add desktop file
 
 * Fri Dec 16 2011 Than Ngo <than@redhat.com> - 1:1.7.6.1-1
 - 1.7.6.1
