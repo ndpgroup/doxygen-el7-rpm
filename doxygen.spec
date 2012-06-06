@@ -1,6 +1,6 @@
 Summary: A documentation system for C/C++
 Name: doxygen
-Version: 1.8.0
+Version: 1.8.1
 Release: 1%{?dist}
 Epoch: 1
 Group: Development/Tools
@@ -12,6 +12,7 @@ Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 # this icon is part of kdesdk
 Source1: doxywizard.png
 Source2: doxywizard.desktop
+
 Patch1: doxygen-1.7.1-config.patch
 Patch2: doxygen-1.7.5-timestamp.patch
 
@@ -100,6 +101,9 @@ rm -rf %{buildroot}
 %{_datadir}/pixmaps/*
 
 %changelog
+* Wed Jun 06 2012 Than Ngo <than@redhat.com> - 1:1.8.1-1
+- 1.8.1
+
 * Mon Feb 27 2012 Than Ngo <than@redhat.com> - 1:1.8.0-1
 - 1.8.0
 
