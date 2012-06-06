@@ -13,7 +13,7 @@ Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 Source1: doxywizard.png
 Source2: doxywizard.desktop
 
-Patch1: doxygen-1.7.1-config.patch
+Patch1: doxygen-1.8.1-config.patch
 Patch2: doxygen-1.7.5-timestamp.patch
 
 BuildRequires: perl
