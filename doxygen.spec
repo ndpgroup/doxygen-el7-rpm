@@ -1,6 +1,6 @@
 Summary: A documentation system for C/C++
 Name: doxygen
-Version: 1.8.1
+Version: 1.8.1.1
 Release: 1%{?dist}
 Epoch: 1
 Group: Development/Tools
@@ -101,6 +101,9 @@ rm -rf %{buildroot}
 %{_datadir}/pixmaps/*
 
 %changelog
+* Mon Jun 11 2012 Than Ngo <than@redhat.com> - 1:1.8.1.1-1
+- 1.8.1.1
+
 * Wed Jun 06 2012 Than Ngo <than@redhat.com> - 1:1.8.1-1
 - 1.8.1
 
