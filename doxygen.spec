@@ -1,7 +1,7 @@
 Summary: A documentation system for C/C++
 Name: doxygen
 Version: 1.8.1.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 Group: Development/Tools
 # No version is specified.
@@ -15,6 +15,7 @@ Source2: doxywizard.desktop
 
 Patch1: doxygen-1.8.1-config.patch
 Patch2: doxygen-1.8.1.1-html_timestamp_default_false.patch 
+Patch3: doxygen-1.8.1.1-multilib.patch
 
 BuildRequires: perl
 BuildRequires: texlive-dvips
@@ -48,6 +49,7 @@ are used by doxygen.
 
 %patch1 -p1 -b .config
 %patch2 -p1 -b .html_timestamp_default_false
+%patch3 -p1 -b .multilib
 
 %build
 unset QTDIR
@@ -101,6 +103,9 @@ rm -rf %{buildroot}
 %{_datadir}/pixmaps/*
 
 %changelog
+* Wed Jun 20 2012 Than Ngo <than@redhat.com> - 1:1.8.1.1-3
+- bz#832525, fix multilib issue
+
 * Wed Jun 13 2012 Rex Dieter <rdieter@fedoraproject.org> 1:1.8.1.1-2
 - make HTML_TIMESTAMP default FALSE
 
