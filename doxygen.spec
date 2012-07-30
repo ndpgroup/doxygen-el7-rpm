@@ -1,7 +1,7 @@
 Summary: A documentation system for C/C++
 Name: doxygen
-Version: 1.8.1.1
-Release: 4%{?dist}
+Version: 1.8.1.2
+Release: 1%{?dist}
 Epoch: 1
 Group: Development/Tools
 # No version is specified.
@@ -103,6 +103,9 @@ rm -rf %{buildroot}
 %{_datadir}/pixmaps/*
 
 %changelog
+* Mon Jul 30 2012 Than Ngo <than@redhat.com> - 1:1.8.1.2-1
+- 1.8.1.2
+
 * Wed Jul 18 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:1.8.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
 
