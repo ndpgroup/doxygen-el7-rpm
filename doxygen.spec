@@ -1,6 +1,6 @@
 Summary: A documentation system for C/C++
 Name: doxygen
-Version: 1.8.1.2
+Version: 1.8.2
 Release: 1%{?dist}
 Epoch: 1
 Group: Development/Tools
@@ -15,7 +15,7 @@ Source2: doxywizard.desktop
 
 Patch1: doxygen-1.8.1-config.patch
 Patch2: doxygen-1.8.1.1-html_timestamp_default_false.patch 
-Patch3: doxygen-1.8.1.1-multilib.patch
+Patch3: doxygen-1.8.2-multilib.patch
 
 BuildRequires: perl
 BuildRequires: texlive-dvips
@@ -103,6 +103,9 @@ rm -rf %{buildroot}
 %{_datadir}/pixmaps/*
 
 %changelog
+* Mon Aug 13 2012 Than Ngo <than@redhat.com> - 1:1.8.2-1
+- 1.8.2
+
 * Mon Jul 30 2012 Than Ngo <than@redhat.com> - 1:1.8.1.2-1
 - 1.8.1.2
 

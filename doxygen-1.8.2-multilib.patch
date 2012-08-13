@@ -1,8 +1,8 @@
-diff -up doxygen-1.8.1.1/src/htmlgen.cpp.multilib doxygen-1.8.1.1/src/htmlgen.cpp
---- doxygen-1.8.1.1/src/htmlgen.cpp.multilib	2012-05-28 21:19:06.000000000 +0200
-+++ doxygen-1.8.1.1/src/htmlgen.cpp	2012-06-20 15:44:15.891243536 +0200
-@@ -142,6 +142,17 @@ static unsigned char func_header_png[56]
-   228, 228, 228, 229, 229, 229, 229, 229
+diff -up doxygen-1.8.2/src/htmlgen.cpp.multilib doxygen-1.8.2/src/htmlgen.cpp
+--- doxygen-1.8.2/src/htmlgen.cpp.multilib	2012-08-11 16:29:09.000000000 +0200
++++ doxygen-1.8.2/src/htmlgen.cpp	2012-08-13 12:48:09.824309711 +0200
+@@ -123,6 +123,17 @@ static unsigned char tab_b_png[36] =
+     202, 204, 206, 208, 210, 214, 216, 203, 185 
  };
  
 +static unsigned char nav_g_png[95] = {
@@ -16,18 +16,18 @@ diff -up doxygen-1.8.1.1/src/htmlgen.cpp.multilib doxygen-1.8.1.1/src/htmlgen.cp
 +0x00, 0x00, 0x00, 0x49, 0x45, 0x4e, 0x44, 0xae, 0x42, 0x60, 0x82, 
 +};
 +
- // hovering
+ // hovering tab background luma
  static unsigned char tab_h_png[36] =
  {
-@@ -752,6 +763,7 @@ static ColoredImgDataItem colored_tab_da
-   { "tab_s.png",    1, 36, tab_s_png, 0 },
-   { "nav_h.png",    1, 12, header_png, 0 },
+@@ -822,6 +833,7 @@ static ColoredImgDataItem colored_tab_da
+   { "tab_s.png",    1, 36, tab_s_png,       0 },
+   { "nav_h.png",    1, 12, header_png,      0 },
    { "nav_f.png",    1, 56, func_header_png, 0 },
-+  { "nav_g.png",    1,  6, nav_g_png, 0 },
-   { "bc_s.png",     8, 32, bc_s_png, bc_s_a_png },
-   { "doxygen.png", 104,31, doxygen_png, doxygen_a_png },
-   { "closed.png",   9,  9, closed_png, closed_a_png },
-@@ -1206,13 +1218,6 @@ void HtmlGenerator::writeTabData()
++  { "nav_g.png",    1,  6, nav_g_png,       0 },
+   { "bc_s.png",     8, 30, bc_s_png,        bc_s_a_png },
+   { "doxygen.png", 104,31, doxygen_png,     doxygen_a_png },
+   { "closed.png",   9,  9, closed_png,      closed_a_png },
+@@ -1481,13 +1493,6 @@ void HtmlGenerator::writeTabData()
    Doxygen::indexList.addStyleSheetFile("tabs.css");
    QCString dname=Config_getString("HTML_OUTPUT");
    writeColoredImgData(dname,colored_tab_data);
