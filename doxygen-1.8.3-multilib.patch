@@ -1,8 +1,8 @@
-diff -up doxygen-1.8.2/src/htmlgen.cpp.multilib doxygen-1.8.2/src/htmlgen.cpp
---- doxygen-1.8.2/src/htmlgen.cpp.multilib	2012-08-11 16:29:09.000000000 +0200
-+++ doxygen-1.8.2/src/htmlgen.cpp	2012-08-13 12:48:09.824309711 +0200
-@@ -123,6 +123,17 @@ static unsigned char tab_b_png[36] =
-     202, 204, 206, 208, 210, 214, 216, 203, 185 
+diff -up doxygen-1.8.3/src/htmlgen.cpp.multilib doxygen-1.8.3/src/htmlgen.cpp
+--- doxygen-1.8.3/src/htmlgen.cpp.multilib	2012-12-25 11:27:52.000000000 +0100
++++ doxygen-1.8.3/src/htmlgen.cpp	2013-01-02 17:08:57.559028518 +0100
+@@ -125,6 +125,17 @@ static unsigned char tab_b_png[36] =
+     205, 207, 209, 211, 213, 217, 219, 206, 188 
  };
  
 +static unsigned char nav_g_png[95] = {
@@ -19,7 +19,7 @@ diff -up doxygen-1.8.2/src/htmlgen.cpp.multilib doxygen-1.8.2/src/htmlgen.cpp
  // hovering tab background luma
  static unsigned char tab_h_png[36] =
  {
-@@ -822,6 +833,7 @@ static ColoredImgDataItem colored_tab_da
+@@ -824,6 +835,7 @@ static ColoredImgDataItem colored_tab_da
    { "tab_s.png",    1, 36, tab_s_png,       0 },
    { "nav_h.png",    1, 12, header_png,      0 },
    { "nav_f.png",    1, 56, func_header_png, 0 },
@@ -27,8 +27,8 @@ diff -up doxygen-1.8.2/src/htmlgen.cpp.multilib doxygen-1.8.2/src/htmlgen.cpp
    { "bc_s.png",     8, 30, bc_s_png,        bc_s_a_png },
    { "doxygen.png", 104,31, doxygen_png,     doxygen_a_png },
    { "closed.png",   9,  9, closed_png,      closed_a_png },
-@@ -1481,13 +1493,6 @@ void HtmlGenerator::writeTabData()
-   Doxygen::indexList.addStyleSheetFile("tabs.css");
+@@ -1502,13 +1514,6 @@ void HtmlGenerator::writeTabData()
+   Doxygen::indexList->addStyleSheetFile("tabs.css");
    QCString dname=Config_getString("HTML_OUTPUT");
    writeColoredImgData(dname,colored_tab_data);
 -
