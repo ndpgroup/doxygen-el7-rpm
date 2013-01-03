@@ -20,6 +20,8 @@ Patch3: doxygen-1.8.3-multilib.patch
 BuildRequires: perl
 BuildRequires: tex(dvips)
 BuildRequires: tex(latex)
+# arg, no safe/virtual provides for these
+BuildRequires: /usr/bin/epstopdf
 BuildRequires: ghostscript
 BuildRequires: gettext
 BuildRequires: flex
