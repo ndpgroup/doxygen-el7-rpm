@@ -18,9 +18,8 @@ Patch2: doxygen-1.8.1.1-html_timestamp_default_false.patch
 Patch3: doxygen-1.8.3-multilib.patch
 
 BuildRequires: perl
-BuildRequires: texlive-dvips
-BuildRequires: texlive-utils
-BuildRequires: texlive-latex
+BuildRequires: tex(dvips)
+BuildRequires: tex(latex)
 BuildRequires: ghostscript
 BuildRequires: gettext
 BuildRequires: flex
