@@ -1,7 +1,7 @@
 Summary: A documentation system for C/C++
 Name: doxygen
 Version: 1.8.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
 Group: Development/Tools
 # No version is specified.
@@ -28,6 +28,17 @@ BuildRequires: flex
 BuildRequires: bison
 BuildRequires: desktop-file-utils
 
+# Any use of doxygen to create PDF with pdflatex (USE_PDFLATEX = YES, which is the default for doxygen)
+# needs extra runtime tex dependencies, see https://bugzilla.redhat.com/891452
+# beware of possible bootstrapping issues (in that case, these are safe to omit at least temporarily)
+Requires: tex(latex)
+%if 0%{?fedora} > 17
+Requires: tex(multirow.sty)
+Requires: tex(sectsty.sty)
+Requires: tex(tocloft.sty)
+Requires: tex(xtab.sty)
+%endif
+
 %description
 Doxygen can generate an online class browser (in HTML) and/or a
 reference manual (in LaTeX) from a set of documented source files. The
@@ -38,7 +49,7 @@ source files.
 %package doxywizard
 Summary: A GUI for creating and editing configuration files
 Group: User Interface/X
-Requires: %{name} = %{epoch}:%{version}
+Requires: %{name} = %{epoch}:%{version}-%{release}
 BuildRequires: qt4-devel >= 4.4
 
 %description doxywizard
@@ -104,6 +115,10 @@ rm -rf %{buildroot}
 %{_datadir}/pixmaps/*
 
 %changelog
+* Thu Jan 03 2013 Rex Dieter <rdieter@fedoraproject.org> - 1:1.8.3-2
+- doxygen is missing dependencies for texlive update (#891452)
+- doxywizard: tighten dep on main pkg
+
 * Wed Jan 02 2013 Than Ngo <than@redhat.com> - 1:1.8.3-1
 - 1.8.3
 
