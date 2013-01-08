@@ -1,13 +1,12 @@
 Summary: A documentation system for C/C++
-Name: doxygen
+Name:    doxygen
+Epoch:   1
 Version: 1.8.3
-Release: 2%{?dist}
-Epoch: 1
-Group: Development/Tools
+Release: 3%{?dist}
+
 # No version is specified.
 License: GPL+
 Url: http://www.stack.nl/~dimitri/doxygen/index.html
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 # this icon is part of kdesdk
 Source1: doxywizard.png
@@ -28,17 +27,6 @@ BuildRequires: flex
 BuildRequires: bison
 BuildRequires: desktop-file-utils
 
-# Any use of doxygen to create PDF with pdflatex (USE_PDFLATEX = YES, which is the default for doxygen)
-# needs extra runtime tex dependencies, see https://bugzilla.redhat.com/891452
-# beware of possible bootstrapping issues (in that case, these are safe to omit at least temporarily)
-Requires: tex(latex)
-%if 0%{?fedora} > 17
-Requires: tex(multirow.sty)
-Requires: tex(sectsty.sty)
-Requires: tex(tocloft.sty)
-Requires: tex(xtab.sty)
-%endif
-
 %description
 Doxygen can generate an online class browser (in HTML) and/or a
 reference manual (in LaTeX) from a set of documented source files. The
@@ -48,13 +36,25 @@ source files.
 
 %package doxywizard
 Summary: A GUI for creating and editing configuration files
-Group: User Interface/X
 Requires: %{name} = %{epoch}:%{version}-%{release}
-BuildRequires: qt4-devel >= 4.4
-
+BuildRequires: qt4-devel
 %description doxywizard
 Doxywizard is a GUI for creating and editing configuration files that
 are used by doxygen.
+
+%package latex
+Summary: Support for producing latex/pdf output from doxygen
+Requires: %{name} = %{epoch}:%{version}-%{release}
+Requires: tex(latex)
+%if 0%{?fedora} > 17
+Requires: tex(multirow.sty)
+Requires: tex(sectsty.sty)
+Requires: tex(tocloft.sty)
+Requires: tex(xtab.sty)
+%endif
+%description latex
+%{summary}.
+
 
 %prep
 %setup -q
@@ -63,9 +63,16 @@ are used by doxygen.
 %patch2 -p1 -b .html_timestamp_default_false
 %patch3 -p1 -b .multilib
 
+# convert into utf-8
+iconv --from=ISO-8859-1 --to=UTF-8 LANGUAGE.HOWTO > LANGUAGE.HOWTO.new
+touch -r LANGUAGE.HOWTO LANGUAGE.HOWTO.new
+mv LANGUAGE.HOWTO.new LANGUAGE.HOWT
+
+
 %build
 unset QTDIR
 
+# not autoconf-based, can't use %%configure macro
 ./configure \
    --prefix %{_prefix} \
    --shared \
@@ -81,40 +88,37 @@ sed -i -e "s|-o ../objects/language.o|-fno-merge-constants -fsection-anchors -o 
 make %{?_smp_mflags} all
 make docs
 
-%install
-rm -rf %{buildroot}
 
+%install
 make install DESTDIR=%{buildroot}
 
-# convert into utf-8
-iconv --from=ISO-8859-1 --to=UTF-8 LANGUAGE.HOWTO > LANGUAGE.HOWTO.new
-touch -r LANGUAGE.HOWTO LANGUAGE.HOWTO.new
-mv LANGUAGE.HOWTO.new LANGUAGE.HOWTO
-
-mkdir -p %{buildroot}%{_datadir}/pixmaps
-install -m 644 -p %{SOURCE1} %{buildroot}%{_datadir}/pixmaps/
+install -m644 -p -D %{SOURCE1} %{buildroot}%{_datadir}/pixmaps/doxywizard.png
 
 desktop-file-install \
    --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 
-%clean
-rm -rf %{buildroot}
 
 %files
-%defattr(-,root,root)
 %doc LANGUAGE.HOWTO README examples
 %doc html
 %{_bindir}/doxygen
 %{_mandir}/man1/doxygen.1*
 
 %files doxywizard
-%defattr(-,root,root)
 %{_bindir}/doxywizard
 %{_mandir}/man1/doxywizard*
 %{_datadir}/applications/doxywizard.desktop
-%{_datadir}/pixmaps/*
+%{_datadir}/pixmaps/doxywizard.png
+
+%files latex
+# intentionally left blank
+
 
 %changelog
+* Tue Jan 08 2013 Rex Dieter <rdieter@fedoraproject.org> - 1:1.8.3-3
+- -latex subpkg (#892288)
+- .spec cleanup
+
 * Thu Jan 03 2013 Rex Dieter <rdieter@fedoraproject.org> - 1:1.8.3-2
 - doxygen is missing dependencies for texlive update (#891452)
 - doxywizard: tighten dep on main pkg
