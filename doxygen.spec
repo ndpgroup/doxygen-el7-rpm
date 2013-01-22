@@ -1,8 +1,8 @@
 Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
-Version: 1.8.3
-Release: 3%{?dist}
+Version: 1.8.3.1
+Release: 1%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -46,7 +46,7 @@ are used by doxygen.
 Summary: Support for producing latex/pdf output from doxygen
 Requires: %{name} = %{epoch}:%{version}-%{release}
 Requires: tex(latex)
-%if 0%{?fedora} > 17
+%if 0%{?fedora} > 17 || 0%{?rhel} > 6
 Requires: tex(multirow.sty)
 Requires: tex(sectsty.sty)
 Requires: tex(tocloft.sty)
@@ -115,6 +115,10 @@ desktop-file-install \
 
 
 %changelog
+* Tue Jan 22 2013 Than Ngo <than@redhat.com> - 1.8.3.1-1
+- 1.8.3.1
+- fedora/rhel condition
+
 * Tue Jan 08 2013 Rex Dieter <rdieter@fedoraproject.org> - 1:1.8.3-3
 - -latex subpkg (#892288)
 - .spec cleanup
