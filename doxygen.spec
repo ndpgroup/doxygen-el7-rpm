@@ -1,8 +1,8 @@
 Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
-Version: 1.8.3.1
-Release: 2%{?dist}
+Version: 1.8.4
+Release: 1%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -12,7 +12,7 @@ Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 Source1: doxywizard.png
 Source2: doxywizard.desktop
 
-Patch1: doxygen-1.8.3-config.patch
+Patch1: doxygen-1.8.4-config.patch
 Patch2: doxygen-1.8.1.1-html_timestamp_default_false.patch 
 Patch3: doxygen-1.8.3-multilib.patch
 
@@ -115,6 +115,9 @@ desktop-file-install \
 
 
 %changelog
+* Tue May 21 2013 Than Ngo <than@redhat.com> - 1:1.8.4-1
+- 1.8.4
+
 * Wed Feb 13 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:1.8.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 

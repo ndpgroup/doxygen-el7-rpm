@@ -1,6 +1,6 @@
-diff -up doxygen-1.8.3/addon/doxywizard/Makefile.in.config doxygen-1.8.3/addon/doxywizard/Makefile.in
---- doxygen-1.8.3/addon/doxywizard/Makefile.in.config	2012-01-29 16:23:25.000000000 +0100
-+++ doxygen-1.8.3/addon/doxywizard/Makefile.in	2013-01-02 16:45:56.206014990 +0100
+diff -up doxygen-1.8.4/addon/doxywizard/Makefile.in.config doxygen-1.8.4/addon/doxywizard/Makefile.in
+--- doxygen-1.8.4/addon/doxywizard/Makefile.in.config	2013-01-05 16:35:52.000000000 +0100
++++ doxygen-1.8.4/addon/doxywizard/Makefile.in	2013-05-21 12:22:49.689166894 +0200
 @@ -10,8 +10,6 @@
  # See the GNU General Public License for more details.
  # 
@@ -26,13 +26,13 @@ diff -up doxygen-1.8.3/addon/doxywizard/Makefile.in.config doxygen-1.8.3/addon/d
  	rm doxywizard.1
  
  FORCE:
-diff -up doxygen-1.8.3/configure.config doxygen-1.8.3/configure
---- doxygen-1.8.3/configure.config	2012-12-27 12:24:51.000000000 +0100
-+++ doxygen-1.8.3/configure	2013-01-02 16:45:56.206014990 +0100
-@@ -280,9 +280,10 @@ if test "$f_wizard" = YES; then
+diff -up doxygen-1.8.4/configure.config doxygen-1.8.4/configure
+--- doxygen-1.8.4/configure.config	2013-05-19 12:05:39.000000000 +0200
++++ doxygen-1.8.4/configure	2013-05-21 12:25:43.570743493 +0200
+@@ -296,9 +296,10 @@ if test "$f_wizard" = YES; then
    if test -z "$QTDIR"; then
      echo "  QTDIR environment variable not set!"
-     echo -n "  Checking for Qt..."
+     printf "  Checking for Qt..."
 -    for d in /usr/{lib,share,qt}/{qt-4,qt4,qt,qt*,4} /usr; do
 +    for d in /usr/{lib64,lib,share,qt}/{qt-4,qt4,qt,qt*,4} /usr; do
        if test -x "$d/bin/qmake"; then
@@ -41,7 +41,7 @@ diff -up doxygen-1.8.3/configure.config doxygen-1.8.3/configure
        fi
      done
    else
-@@ -514,6 +515,8 @@ INSTTOOL  = $f_insttool
+@@ -606,6 +607,8 @@ INSTTOOL  = $f_insttool
  DOXYDOCS  = ..
  DOCDIR    = $f_docdir
  QTDIR     = $QTDIR
@@ -50,9 +50,9 @@ diff -up doxygen-1.8.3/configure.config doxygen-1.8.3/configure
  EOF
  
  if test "$f_dot" != NO; then
-diff -up doxygen-1.8.3/Makefile.in.config doxygen-1.8.3/Makefile.in
---- doxygen-1.8.3/Makefile.in.config	2012-12-25 13:17:27.000000000 +0100
-+++ doxygen-1.8.3/Makefile.in	2013-01-02 16:50:44.919183628 +0100
+diff -up doxygen-1.8.4/Makefile.in.config doxygen-1.8.4/Makefile.in
+--- doxygen-1.8.4/Makefile.in.config	2013-04-25 21:38:39.000000000 +0200
++++ doxygen-1.8.4/Makefile.in	2013-05-21 12:22:49.689166894 +0200
 @@ -53,8 +53,6 @@ distclean: clean
  
  DATE=$(shell date "+%B %Y")
@@ -62,9 +62,9 @@ diff -up doxygen-1.8.3/Makefile.in.config doxygen-1.8.3/Makefile.in
  install: doxywizard_install doxysearch_install
  	$(INSTTOOL) -d $(DESTDIR)/$(INSTALL)/bin
  	$(INSTTOOL) -m 755 bin/doxygen        $(DESTDIR)/$(INSTALL)/bin
-diff -up doxygen-1.8.3/tmake/lib/linux-g++/tmake.conf.config doxygen-1.8.3/tmake/lib/linux-g++/tmake.conf
---- doxygen-1.8.3/tmake/lib/linux-g++/tmake.conf.config	2012-12-22 19:49:04.000000000 +0100
-+++ doxygen-1.8.3/tmake/lib/linux-g++/tmake.conf	2013-01-02 16:52:08.828039570 +0100
+diff -up doxygen-1.8.4/tmake/lib/linux-g++/tmake.conf.config doxygen-1.8.4/tmake/lib/linux-g++/tmake.conf
+--- doxygen-1.8.4/tmake/lib/linux-g++/tmake.conf.config	2012-12-22 19:49:04.000000000 +0100
++++ doxygen-1.8.4/tmake/lib/linux-g++/tmake.conf	2013-05-21 12:22:49.689166894 +0200
 @@ -11,7 +11,7 @@ TMAKE_CC		= gcc
  TMAKE_CFLAGS		= -pipe 
  TMAKE_CFLAGS_WARN_ON	= -Wall -W 
