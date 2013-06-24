@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -15,6 +15,7 @@ Source2: doxywizard.desktop
 Patch1: doxygen-1.8.4-config.patch
 Patch2: doxygen-1.8.1.1-html_timestamp_default_false.patch 
 Patch3: doxygen-1.8.3-multilib.patch
+Patch4: doxygen-1.4.8-endless-loop.patch
 
 BuildRequires: perl
 BuildRequires: tex(dvips)
@@ -62,7 +63,7 @@ Requires: tex(xtab.sty)
 %patch1 -p1 -b .config
 %patch2 -p1 -b .html_timestamp_default_false
 %patch3 -p1 -b .multilib
-
+%patch4 -p1 -b .endless-loop
 # convert into utf-8
 iconv --from=ISO-8859-1 --to=UTF-8 LANGUAGE.HOWTO > LANGUAGE.HOWTO.new
 touch -r LANGUAGE.HOWTO LANGUAGE.HOWTO.new
@@ -115,6 +116,9 @@ desktop-file-install \
 
 
 %changelog
+* Mon Jun 24 2013 Than Ngo <than@redhat.com> - 1:1.8.4-2
+- backport upstream patch to fix endless loop
+
 * Tue May 21 2013 Than Ngo <than@redhat.com> - 1:1.8.4-1
 - 1.8.4
 
