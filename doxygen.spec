@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -22,6 +22,8 @@ BuildRequires: tex(dvips)
 BuildRequires: tex(latex)
 # arg, no safe/virtual provides for these
 BuildRequires: /usr/bin/epstopdf
+# Work around strange dependences in epstopdf packages (RHBZ#991699)
+BuildRequires: texlive-epstopdf
 BuildRequires: ghostscript
 BuildRequires: gettext
 BuildRequires: flex
@@ -116,6 +118,9 @@ desktop-file-install \
 
 
 %changelog
+* Sat Aug 03 2013 Robert Scheck <robert@fedoraproject.org> - 1:1.8.4-4
+- Work around strange dependencies in epstopdf packages (#991699)
+
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:1.8.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
