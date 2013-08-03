@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -116,6 +116,9 @@ desktop-file-install \
 
 
 %changelog
+* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:1.8.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
 * Mon Jun 24 2013 Than Ngo <than@redhat.com> - 1:1.8.4-2
 - backport upstream patch to fix endless loop
 
