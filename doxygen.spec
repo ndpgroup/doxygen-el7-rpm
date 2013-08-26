@@ -13,9 +13,8 @@ Source1: doxywizard.png
 Source2: doxywizard.desktop
 
 Patch1: doxygen-1.8.4-config.patch
-Patch2: doxygen-1.8.1.1-html_timestamp_default_false.patch 
+Patch2: doxygen-1.8.5-html_timestamp_default_false.patch 
 Patch3: doxygen-1.8.3-multilib.patch
-Patch4: doxygen-1.4.8-endless-loop.patch
 
 BuildRequires: perl
 BuildRequires: tex(dvips)
@@ -65,7 +64,7 @@ Requires: tex(xtab.sty)
 %patch1 -p1 -b .config
 %patch2 -p1 -b .html_timestamp_default_false
 %patch3 -p1 -b .multilib
-%patch4 -p1 -b .endless-loop
+
 # convert into utf-8
 iconv --from=ISO-8859-1 --to=UTF-8 LANGUAGE.HOWTO > LANGUAGE.HOWTO.new
 touch -r LANGUAGE.HOWTO LANGUAGE.HOWTO.new
