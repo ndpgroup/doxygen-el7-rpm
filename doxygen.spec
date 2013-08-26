@@ -1,8 +1,8 @@
 Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
-Version: 1.8.4
-Release: 4%{?dist}
+Version: 1.8.5
+Release: 1%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -118,6 +118,9 @@ desktop-file-install \
 
 
 %changelog
+* Mon Aug 26 2013 Than Ngo <than@redhat.com> - 1:1.8.5-1
+- 1.8.5
+
 * Sat Aug 03 2013 Robert Scheck <robert@fedoraproject.org> - 1:1.8.4-4
 - Work around strange dependencies in epstopdf packages (#991699)
 
