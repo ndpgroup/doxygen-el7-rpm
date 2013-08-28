@@ -12,7 +12,7 @@ Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 Source1: doxywizard.png
 Source2: doxywizard.desktop
 
-Patch1: doxygen-1.8.4-config.patch
+Patch1: doxygen-1.8.5-config.patch
 Patch2: doxygen-1.8.5-html_timestamp_default_false.patch 
 Patch3: doxygen-1.8.3-multilib.patch
 
@@ -93,15 +93,17 @@ make docs
 
 %install
 make install DESTDIR=%{buildroot}
+make doxywizard_install DESTDIR=%{buildroot}
 
 install -m644 -p -D %{SOURCE1} %{buildroot}%{_datadir}/pixmaps/doxywizard.png
+install -m644 -p doc/doxywizard.1 %{buildroot}%{_mandir}/man1/
 
 desktop-file-install \
    --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 
 
 %files
-%doc LANGUAGE.HOWTO README examples
+%doc LANGUAGE.HOWTO README.md examples
 %doc html
 %{_bindir}/doxygen
 %{_mandir}/man1/doxygen.1*
