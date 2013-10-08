@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -53,6 +53,7 @@ Requires: tex(multirow.sty)
 Requires: tex(sectsty.sty)
 Requires: tex(tocloft.sty)
 Requires: tex(xtab.sty)
+Requires: texlive-epstopdf-bin
 %endif
 %description latex
 %{summary}.
@@ -119,6 +120,9 @@ desktop-file-install \
 
 
 %changelog
+* Tue Oct 08 2013 Than Ngo <than@redhat.com> - 1:1.8.5-2
+- add exlive-epstopdf-bin in requirement
+
 * Mon Aug 26 2013 Than Ngo <than@redhat.com> - 1:1.8.5-1
 - 1.8.5
 
