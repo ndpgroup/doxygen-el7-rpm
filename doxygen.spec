@@ -1,8 +1,8 @@
 Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
-Version: 1.8.5
-Release: 2%{?dist}
+Version: 1.8.6
+Release: 1%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -12,7 +12,7 @@ Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 Source1: doxywizard.png
 Source2: doxywizard.desktop
 
-Patch1: doxygen-1.8.5-config.patch
+Patch1: doxygen-1.8.6-config.patch
 Patch2: doxygen-1.8.5-html_timestamp_default_false.patch 
 Patch3: doxygen-1.8.3-multilib.patch
 
@@ -120,6 +120,9 @@ desktop-file-install \
 
 
 %changelog
+* Thu Dec 26 2013 Orion Poplawski <orion@cora.nwra.com> - 1:1.8.6-1
+- 1.8.6
+
 * Tue Oct 08 2013 Than Ngo <than@redhat.com> - 1:1.8.5-2
 - add exlive-epstopdf-bin in requirement
 
