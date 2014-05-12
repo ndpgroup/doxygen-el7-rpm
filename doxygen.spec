@@ -1,7 +1,7 @@
 Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
-Version: 1.8.6
+Version: 1.8.7
 Release: 1%{?dist}
 
 # No version is specified.
@@ -13,7 +13,7 @@ Source1: doxywizard.png
 Source2: doxywizard.desktop
 
 Patch1: doxygen-1.8.6-config.patch
-Patch2: doxygen-1.8.5-html_timestamp_default_false.patch 
+Patch2: doxygen-1.8.7-html_timestamp_default_false.patch 
 Patch3: doxygen-1.8.3-multilib.patch
 
 BuildRequires: perl
@@ -120,6 +120,9 @@ desktop-file-install \
 
 
 %changelog
+* Mon May 12 2014 Than Ngo <than@redhat.com> - 1:1.8.7-1
+- 1.8.7
+
 * Thu Dec 26 2013 Orion Poplawski <orion@cora.nwra.com> - 1:1.8.6-1
 - 1.8.6
 
