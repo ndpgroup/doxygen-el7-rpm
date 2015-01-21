@@ -1,7 +1,7 @@
 Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
-Version: 1.8.8
+Version: 1.8.9.1
 Release: 1%{?dist}
 
 # No version is specified.
@@ -12,9 +12,8 @@ Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 Source1: doxywizard.png
 Source2: doxywizard.desktop
 
-Patch1: doxygen-1.8.6-config.patch
-Patch2: doxygen-1.8.7-html_timestamp_default_false.patch 
-Patch3: doxygen-1.8.3-multilib.patch
+Patch1: doxygen-1.8.9.1-config.patch
+Patch2: doxygen-1.8.9.1-html_timestamp_default_false.patch 
 
 BuildRequires: perl
 BuildRequires: tex(dvips)
@@ -64,7 +63,6 @@ Requires: texlive-epstopdf-bin
 
 %patch1 -p1 -b .config
 %patch2 -p1 -b .html_timestamp_default_false
-%patch3 -p1 -b .multilib
 
 # convert into utf-8
 iconv --from=ISO-8859-1 --to=UTF-8 LANGUAGE.HOWTO > LANGUAGE.HOWTO.new
@@ -120,6 +118,9 @@ desktop-file-install \
 
 
 %changelog
+* Wed Jan 21 2015 Than Ngo <than@redhat.com> 1.8.9.1-1
+- update to 1.8.9.1
+
 * Mon Aug 25 2014 Than Ngo <than@redhat.com> - 1:1.8.8-1
 - 1.8.8
 
