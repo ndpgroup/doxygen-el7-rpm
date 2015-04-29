@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.9.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -14,6 +14,7 @@ Source2: doxywizard.desktop
 
 Patch1: doxygen-1.8.9.1-config.patch
 Patch2: doxygen-1.8.9.1-html_timestamp_default_false.patch 
+Patch3: doxygen-bz#1198355.patch
 
 BuildRequires: perl
 BuildRequires: tex(dvips)
@@ -63,6 +64,7 @@ Requires: texlive-epstopdf-bin
 
 %patch1 -p1 -b .config
 %patch2 -p1 -b .html_timestamp_default_false
+%patch3 -p1 -b .bz#1198355
 
 # convert into utf-8
 iconv --from=ISO-8859-1 --to=UTF-8 LANGUAGE.HOWTO > LANGUAGE.HOWTO.new
@@ -118,7 +120,10 @@ desktop-file-install \
 
 
 %changelog
-* Wed Jan 21 2015 Than Ngo <than@redhat.com> 1.8.9.1-1
+* Wed Apr 29 2015 Than Ngo <than@redhat.com> - 1:1.8.9.1-2
+- Resolves: bz#1198355, doxygen generates \backmatter in article class
+
+* Wed Jan 21 2015 Than Ngo <than@redhat.com> 1:1.8.9.1-1
 - update to 1.8.9.1
 
 * Mon Aug 25 2014 Than Ngo <than@redhat.com> - 1:1.8.8-1
