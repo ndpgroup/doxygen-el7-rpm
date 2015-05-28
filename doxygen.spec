@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.9.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -120,6 +120,9 @@ desktop-file-install \
 
 
 %changelog
+* Thu May 28 2015 Than Ngo <than@redhat.com> - 1:1.8.9.1-3
+- rebuild
+
 * Wed Apr 29 2015 Than Ngo <than@redhat.com> - 1:1.8.9.1-2
 - Resolves: bz#1198355, doxygen generates \backmatter in article class
 
