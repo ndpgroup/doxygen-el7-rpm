@@ -99,6 +99,7 @@ desktop-file-install \
 
 %files
 %doc LANGUAGE.HOWTO README.md
+%doc %{_docdir}/doxygen
 %{_bindir}/doxygen
 %{_mandir}/man1/doxygen.1*
 %{_mandir}/man1/doxyindexer.1.gz
