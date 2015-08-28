@@ -1,8 +1,8 @@
 Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
-Version: 1.8.9.1
-Release: 4%{?dist}
+Version: 1.8.10
+Release: 1%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -11,23 +11,24 @@ Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 # this icon is part of kdesdk
 Source1: doxywizard.png
 Source2: doxywizard.desktop
-
-Patch1: doxygen-1.8.9.1-config.patch
-Patch2: doxygen-1.8.9.1-html_timestamp_default_false.patch 
-Patch3: doxygen-bz#1198355.patch
+Patch1: doxygen-1.8.10-install.patch
 
 BuildRequires: perl
 BuildRequires: tex(dvips)
 BuildRequires: tex(latex)
-# arg, no safe/virtual provides for these
+BuildRequires: tex(multirow.sty)
+BuildRequires: tex(sectsty.sty)
+BuildRequires: tex(tocloft.sty)
+BuildRequires: tex(xtab.sty)
 BuildRequires: /usr/bin/epstopdf
-# Work around strange dependences in epstopdf packages (RHBZ#991699)
 BuildRequires: texlive-epstopdf
 BuildRequires: ghostscript
 BuildRequires: gettext
 BuildRequires: flex
 BuildRequires: bison
 BuildRequires: desktop-file-utils
+BuildRequires: cmake
+BuildRequires: graphviz
 
 %description
 Doxygen can generate an online class browser (in HTML) and/or a
@@ -61,53 +62,47 @@ Requires: texlive-epstopdf-bin
 
 %prep
 %setup -q
-
 %patch1 -p1 -b .config
-%patch2 -p1 -b .html_timestamp_default_false
-%patch3 -p1 -b .bz#1198355
 
 # convert into utf-8
 iconv --from=ISO-8859-1 --to=UTF-8 LANGUAGE.HOWTO > LANGUAGE.HOWTO.new
 touch -r LANGUAGE.HOWTO LANGUAGE.HOWTO.new
-mv LANGUAGE.HOWTO.new LANGUAGE.HOWT
+mv LANGUAGE.HOWTO.new LANGUAGE.HOWTO
 
 
 %build
-unset QTDIR
 
-# not autoconf-based, can't use %%configure macro
-./configure \
-   --prefix %{_prefix} \
-   --shared \
-   --with-doxywizard \
-   --release
+mkdir -p %{_target_platform}
+pushd %{_target_platform}
+%cmake \
+		-Dbuild_doc=ON \
+		-Dbuild_wizard=ON \
+		-Dbuild_xmlparser=ON \
+		-DMAN_INSTALL_DIR=%{_mandir}/man1 \
+		-DDOC_INSTALL_DIR=%{_docdir}/doxygen \
+		-DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} \
+		..
+popd
 
-# workaround for "Error: operand out of range", language.cpp needs to be splitted
-%ifarch ppc64
-make -C src Makefile.libdoxygen
-sed -i -e "s|-o ../objects/language.o|-fno-merge-constants -fsection-anchors -o ../objects/language.o|" src/Makefile.libdoxygen
-%endif
-
-make %{?_smp_mflags} all
-make docs
-
+make %{?_smp_mflags} -C %{_target_platform}
+make docs -C %{_target_platform}
 
 %install
-make install DESTDIR=%{buildroot}
-make doxywizard_install DESTDIR=%{buildroot}
+make install \
+	DESTDIR=%{buildroot} \
+	-C %{_target_platform}
 
 install -m644 -p -D %{SOURCE1} %{buildroot}%{_datadir}/pixmaps/doxywizard.png
-install -m644 -p doc/doxywizard.1 %{buildroot}%{_mandir}/man1/
 
 desktop-file-install \
    --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 
-
 %files
-%doc LANGUAGE.HOWTO README.md examples
-%doc html
+%doc LANGUAGE.HOWTO README.md
 %{_bindir}/doxygen
 %{_mandir}/man1/doxygen.1*
+%{_mandir}/man1/doxyindexer.1.gz
+%{_mandir}/man1/doxysearch.1.gz
 
 %files doxywizard
 %{_bindir}/doxywizard
@@ -120,6 +115,9 @@ desktop-file-install \
 
 
 %changelog
+* Fri Aug 28 2015 Than Ngo <than@redhat.com> - 1.8.10-1
+- update to 1.8.10
+
 * Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:1.8.9.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
