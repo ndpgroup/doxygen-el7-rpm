@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.10
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -81,6 +81,7 @@ pushd %{_target_platform}
 		-DMAN_INSTALL_DIR=%{_mandir}/man1 \
 		-DDOC_INSTALL_DIR=%{_docdir}/doxygen \
 		-DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} \
+		-DBUILD_SHARED_LIBS=OFF \
 		..
 popd
 
@@ -116,6 +117,9 @@ desktop-file-install \
 
 
 %changelog
+* Wed Sep 23 2015 Than Ngo <than@redhat.com> - 1.8.10-2
+- fix broken deps
+
 * Fri Aug 28 2015 Than Ngo <than@redhat.com> - 1.8.10-1
 - update to 1.8.10
 
