@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.10
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -119,6 +119,9 @@ desktop-file-install \
 
 
 %changelog
+* Thu Oct 08 2015 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 1:1.8.10-4
+- Fix patch to apply
+
 * Thu Oct 08 2015 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 1:1.8.10-3
 - drop QT_ARCH_X86_64 hardcoded definition to get doxygen built on aarch64
   (it built by pure luck on other architectures)
