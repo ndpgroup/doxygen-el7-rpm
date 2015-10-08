@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.10
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -12,6 +12,7 @@ Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 Source1: doxywizard.png
 Source2: doxywizard.desktop
 Patch1: doxygen-1.8.10-install.patch
+Patch2: doxygen-1.8.10-drop-qt-arch-x86-64-definition.patch
 
 BuildRequires: perl
 BuildRequires: tex(dvips)
@@ -63,6 +64,7 @@ Requires: texlive-epstopdf-bin
 %prep
 %setup -q
 %patch1 -p1 -b .config
+%patch2 -p1
 
 # convert into utf-8
 iconv --from=ISO-8859-1 --to=UTF-8 LANGUAGE.HOWTO > LANGUAGE.HOWTO.new
@@ -117,6 +119,10 @@ desktop-file-install \
 
 
 %changelog
+* Thu Oct 08 2015 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 1:1.8.10-3
+- drop QT_ARCH_X86_64 hardcoded definition to get doxygen built on aarch64
+  (it built by pure luck on other architectures)
+
 * Wed Sep 23 2015 Than Ngo <than@redhat.com> - 1.8.10-2
 - fix broken deps
 
