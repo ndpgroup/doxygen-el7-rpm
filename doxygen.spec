@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.10
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -95,14 +95,15 @@ make install \
 	DESTDIR=%{buildroot} \
 	-C %{_target_platform}
 
+mv %{buildroot}%{_docdir}/doxygen .
+
 install -m644 -p -D %{SOURCE1} %{buildroot}%{_datadir}/pixmaps/doxywizard.png
 
 desktop-file-install \
    --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 
 %files
-%doc LANGUAGE.HOWTO README.md
-%doc %{_docdir}/doxygen
+%doc LANGUAGE.HOWTO README.md doxygen
 %{_bindir}/doxygen
 %{_mandir}/man1/doxygen.1*
 %{_mandir}/man1/doxyindexer.1.gz
@@ -119,6 +120,9 @@ desktop-file-install \
 
 
 %changelog
+* Mon Nov 09 2015 Than Ngo <than@redhat.com> - 1:1.8.10-5
+- fix install issue
+
 * Thu Oct 08 2015 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 1:1.8.10-4
 - Fix patch to apply
 
