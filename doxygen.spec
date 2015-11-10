@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.10
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -12,7 +12,16 @@ Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 Source1: doxywizard.png
 Source2: doxywizard.desktop
 Patch1: doxygen-1.8.10-install.patch
-Patch2: doxygen-1.8.10-drop-qt-arch-x86-64-definition.patch
+
+# upstream fixes
+Patch100: doxygen-1.8.10-drop-qt-arch-x86-64-definition.patch
+Patch101: doxygen-1.8.10-angle-bracket.patch
+Patch102: doxygen-1.8.10-SOURCE_DATE_EPOCH.patch
+Patch103: doxygen-1.8.10-bibtex.patch
+Patch104: doxygen-1.8.10-fixspace.patch
+Patch105: doxygen-1.8.10-xml.patch
+Patch106: doxygen-1.8.10-latex.patch
+Patch107: doxygen-1.8.10-timestamp-latex.patch
 
 BuildRequires: perl
 BuildRequires: tex(dvips)
@@ -64,7 +73,14 @@ Requires: texlive-epstopdf-bin
 %prep
 %setup -q
 %patch1 -p1 -b .config
-%patch2 -p1
+%patch100 -p1
+%patch101 -p1 -b .angle-bracket
+%patch102 -p1 -b .SOURCE_DATE_EPOCH
+%patch103 -p1 -b .bibtex
+%patch104 -p1 -b .fixspace
+%patch105 -p1 -b .xml
+%patch106 -p1 -b .latex
+%patch107 -p1 -b .latex-timestamps
 
 # convert into utf-8
 iconv --from=ISO-8859-1 --to=UTF-8 LANGUAGE.HOWTO > LANGUAGE.HOWTO.new
@@ -120,6 +136,16 @@ desktop-file-install \
 
 
 %changelog
+* Tue Nov 10 2015 Than Ngo <than@redhat.com> - 1:1.8.10-6
+- backport patches to fix follow issues:
+   angle brackets (< and >) not escaped in HTML formula alt text
+   don't support longer key in bibtex
+   math does not work in LaTeX with custom header and footer
+   writeMemberNavIndex template calls static fixSpaces
+   XML empty <argsstring/> in python
+   XML not documenting a class in python
+   add option to build latex without timestamps
+
 * Mon Nov 09 2015 Than Ngo <than@redhat.com> - 1:1.8.10-5
 - fix install issue
 
