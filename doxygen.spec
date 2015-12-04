@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.10
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -22,6 +22,7 @@ Patch104: doxygen-1.8.10-fixspace.patch
 Patch105: doxygen-1.8.10-xml.patch
 Patch106: doxygen-1.8.10-latex.patch
 Patch107: doxygen-1.8.10-timestamp-latex.patch
+Patch108: doxygen-1.8.10-memory-leaks.patch
 
 BuildRequires: perl
 BuildRequires: tex(dvips)
@@ -81,6 +82,7 @@ Requires: texlive-epstopdf-bin
 %patch105 -p1 -b .xml
 %patch106 -p1 -b .latex
 %patch107 -p1 -b .latex-timestamps
+%patch108 -p1 -b .leaks
 
 # convert into utf-8
 iconv --from=ISO-8859-1 --to=UTF-8 LANGUAGE.HOWTO > LANGUAGE.HOWTO.new
@@ -136,6 +138,9 @@ desktop-file-install \
 
 
 %changelog
+* Fri Dec 04 2015 Than Ngo <than@redhat.com> - 1:1.8.10-7
+- backport to fix a couple of small memory leaks
+
 * Tue Nov 10 2015 Than Ngo <than@redhat.com> - 1:1.8.10-6
 - backport patches to fix follow issues:
    angle brackets (< and >) not escaped in HTML formula alt text
