@@ -11,7 +11,6 @@ Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 # this icon is part of kdesdk
 Source1: doxywizard.png
 Source2: doxywizard.desktop
-Patch1: doxygen-1.8.11-install.patch
 
 # upstream fixes
 
@@ -64,7 +63,6 @@ Requires: texlive-epstopdf-bin
 
 %prep
 %setup -q
-%patch1 -p1 -b .config
 
 # convert into utf-8
 iconv --from=ISO-8859-1 --to=UTF-8 LANGUAGE.HOWTO > LANGUAGE.HOWTO.new
@@ -77,37 +75,37 @@ mv LANGUAGE.HOWTO.new LANGUAGE.HOWTO
 mkdir -p %{_target_platform}
 pushd %{_target_platform}
 %cmake \
-		-Dbuild_doc=ON \
+		-Dbuild_doc=OFF \
 		-Dbuild_wizard=ON \
 		-Dbuild_xmlparser=ON \
 		-DMAN_INSTALL_DIR=%{_mandir}/man1 \
-		-DDOC_INSTALL_DIR=%{_docdir}/doxygen \
 		-DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} \
 		-DBUILD_SHARED_LIBS=OFF \
 		..
 popd
 
 make %{?_smp_mflags} -C %{_target_platform}
-make docs -C %{_target_platform}
 
 %install
 make install \
 	DESTDIR=%{buildroot} \
 	-C %{_target_platform}
 
-mv %{buildroot}%{_docdir}/doxygen .
-
 install -m644 -p -D %{SOURCE1} %{buildroot}%{_datadir}/pixmaps/doxywizard.png
+
+# install man pages
+mkdir -p %{buildroot}/%{_mandir}/man1
+cp doc/*.1 %{buildroot}/%{_mandir}/man1/
 
 desktop-file-install \
    --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 
 %files
-%doc LANGUAGE.HOWTO README.md doxygen
+%doc LANGUAGE.HOWTO README.md
 %{_bindir}/doxygen
 %{_mandir}/man1/doxygen.1*
-%{_mandir}/man1/doxyindexer.1.gz
-%{_mandir}/man1/doxysearch.1.gz
+%{_mandir}/man1/doxyindexer.1*
+%{_mandir}/man1/doxysearch.1*
 
 %files doxywizard
 %{_bindir}/doxywizard
