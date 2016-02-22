@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.11
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -13,6 +13,7 @@ Source1: doxywizard.png
 Source2: doxywizard.desktop
 
 # upstream fixes
+Patch1: doxygen-percent_sign.patch
 
 BuildRequires: perl
 BuildRequires: tex(dvips)
@@ -63,6 +64,7 @@ Requires: texlive-epstopdf-bin
 
 %prep
 %setup -q
+%patch1 -p1 -R
 
 # convert into utf-8
 iconv --from=ISO-8859-1 --to=UTF-8 LANGUAGE.HOWTO > LANGUAGE.HOWTO.new
@@ -118,6 +120,9 @@ desktop-file-install \
 
 
 %changelog
+* Mon Feb 22 2016 Than Ngo <than@redhat.com> - 1:1.8.11-3
+- fix bz#1305739, Unescaped percent sign in doxygen
+
 * Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.8.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
