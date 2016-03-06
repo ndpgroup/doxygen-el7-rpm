@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.11
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -64,7 +64,7 @@ Requires: texlive-epstopdf-bin
 
 %prep
 %setup -q
-%patch1 -p1 -R
+patch1 -p1
 
 # convert into utf-8
 iconv --from=ISO-8859-1 --to=UTF-8 LANGUAGE.HOWTO > LANGUAGE.HOWTO.new
@@ -120,6 +120,9 @@ desktop-file-install \
 
 
 %changelog
+* Sun Mar 06 2016 Than Ngo <than@redhat.com> - 1:1.8.11-4
+- bz#1305739, Unescaped percent sign in doxygen
+
 * Mon Feb 22 2016 Than Ngo <than@redhat.com> - 1:1.8.11-3
 - fix bz#1305739, Unescaped percent sign in doxygen
 
