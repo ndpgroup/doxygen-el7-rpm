@@ -64,7 +64,7 @@ Requires: texlive-epstopdf-bin
 
 %prep
 %setup -q
-patch1 -p1
+%patch1 -p1
 
 # convert into utf-8
 iconv --from=ISO-8859-1 --to=UTF-8 LANGUAGE.HOWTO > LANGUAGE.HOWTO.new
