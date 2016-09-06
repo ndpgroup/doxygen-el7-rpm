@@ -1,8 +1,8 @@
 Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
-Version: 1.8.11
-Release: 4%{?dist}
+Version: 1.8.12
+Release: 1%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -13,7 +13,6 @@ Source1: doxywizard.png
 Source2: doxywizard.desktop
 
 # upstream fixes
-Patch1: doxygen-percent_sign.patch
 
 BuildRequires: perl
 BuildRequires: tex(dvips)
@@ -64,7 +63,6 @@ Requires: texlive-epstopdf-bin
 
 %prep
 %setup -q
-%patch1 -p1
 
 # convert into utf-8
 iconv --from=ISO-8859-1 --to=UTF-8 LANGUAGE.HOWTO > LANGUAGE.HOWTO.new
@@ -120,6 +118,9 @@ desktop-file-install \
 
 
 %changelog
+* Tue Sep 06 2016 Than Ngo <than@redhat.com> - 1:1.8.12-1
+- 1.8.12
+
 * Sun Mar 06 2016 Than Ngo <than@redhat.com> - 1:1.8.11-4
 - bz#1305739, Unescaped percent sign in doxygen
 
