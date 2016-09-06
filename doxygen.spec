@@ -75,13 +75,14 @@ mv LANGUAGE.HOWTO.new LANGUAGE.HOWTO
 mkdir -p %{_target_platform}
 pushd %{_target_platform}
 %cmake \
-		-Dbuild_doc=OFF \
-		-Dbuild_wizard=ON \
-		-Dbuild_xmlparser=ON \
-		-DMAN_INSTALL_DIR=%{_mandir}/man1 \
-		-DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} \
-		-DBUILD_SHARED_LIBS=OFF \
-		..
+      -Dbuild_doc=OFF \
+      -Dbuild_wizard=ON \
+      -Dbuild_xmlparser=ON \
+      -Dbuild_search=ON \
+      -DMAN_INSTALL_DIR=%{_mandir}/man1 \
+      -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} \
+      -DBUILD_SHARED_LIBS=OFF \
+      ..
 popd
 
 make %{?_smp_mflags} -C %{_target_platform}
@@ -103,6 +104,8 @@ desktop-file-install \
 %files
 %doc LANGUAGE.HOWTO README.md
 %{_bindir}/doxygen
+%{_bindir}/doxyindexer
+%{_bindir}/doxysearch*
 %{_mandir}/man1/doxygen.1*
 %{_mandir}/man1/doxyindexer.1*
 %{_mandir}/man1/doxysearch.1*
@@ -120,6 +123,7 @@ desktop-file-install \
 %changelog
 * Tue Sep 06 2016 Than Ngo <than@redhat.com> - 1:1.8.12-1
 - 1.8.12
+- fixed bz#1373167 - doxygen ships bogus man pages 
 
 * Sun Mar 06 2016 Than Ngo <than@redhat.com> - 1:1.8.11-4
 - bz#1305739, Unescaped percent sign in doxygen
