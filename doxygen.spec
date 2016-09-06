@@ -30,6 +30,7 @@ BuildRequires: bison
 BuildRequires: desktop-file-utils
 BuildRequires: cmake
 BuildRequires: graphviz
+BuildRequires: xapian-core-devel
 
 %description
 Doxygen can generate an online class browser (in HTML) and/or a
