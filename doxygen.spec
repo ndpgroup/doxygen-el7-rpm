@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.12
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -13,6 +13,8 @@ Source1: doxywizard.png
 Source2: doxywizard.desktop
 
 # upstream fixes
+Patch1: doxygen-771310.patch
+Patch2: doxygen-771344.patch
 
 BuildRequires: perl
 BuildRequires: tex(dvips)
@@ -63,7 +65,7 @@ Requires: texlive-epstopdf-bin
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 # convert into utf-8
 iconv --from=ISO-8859-1 --to=UTF-8 LANGUAGE.HOWTO > LANGUAGE.HOWTO.new
@@ -122,6 +124,11 @@ desktop-file-install \
 
 
 %changelog
+* Thu Oct 20 2016 Than Ngo <than@redhat.com> - 1:1.8.12-2
+- backport upstream fixes
+  Bug 771310 - French description for "Namespace Members" is wrong and causes fatal javascript error
+  Bug 771344 - Class name 'internal' breaks class hierarchy in C++
+
 * Tue Sep 06 2016 Than Ngo <than@redhat.com> - 1:1.8.12-1
 - 1.8.12
 - fixed bz#1373167 - doxygen ships bogus man pages 
