@@ -61,6 +61,9 @@ Requires: tex(multirow.sty)
 Requires: tex(sectsty.sty)
 Requires: tex(tocloft.sty)
 Requires: tex(xtab.sty)
+Requires: tex(import.sty)
+Requires: tex(tabu.sty)
+Requires: tex(appendix.sty)
 Requires: texlive-epstopdf-bin
 %endif
 %description latex
