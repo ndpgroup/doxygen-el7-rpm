@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.12
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -23,6 +23,8 @@ BuildRequires: tex(multirow.sty)
 BuildRequires: tex(sectsty.sty)
 BuildRequires: tex(tocloft.sty)
 BuildRequires: tex(xtab.sty)
+BuildRequires: tex(import.sty)
+BuildRequires: tex(tabu.sty)
 BuildRequires: /usr/bin/epstopdf
 BuildRequires: texlive-epstopdf
 BuildRequires: ghostscript
@@ -78,7 +80,7 @@ mv LANGUAGE.HOWTO.new LANGUAGE.HOWTO
 mkdir -p %{_target_platform}
 pushd %{_target_platform}
 %cmake \
-      -Dbuild_doc=OFF \
+      -Dbuild_doc=ON \
       -Dbuild_wizard=ON \
       -Dbuild_xmlparser=ON \
       -Dbuild_search=ON \
@@ -88,12 +90,11 @@ pushd %{_target_platform}
       ..
 popd
 
+make docs %{?_smp_mflags} -C %{_target_platform}
 make %{?_smp_mflags} -C %{_target_platform}
 
 %install
-make install \
-	DESTDIR=%{buildroot} \
-	-C %{_target_platform}
+make install DESTDIR=%{buildroot} -C %{_target_platform}
 
 install -m644 -p -D %{SOURCE1} %{buildroot}%{_datadir}/pixmaps/doxywizard.png
 
@@ -101,11 +102,15 @@ install -m644 -p -D %{SOURCE1} %{buildroot}%{_datadir}/pixmaps/doxywizard.png
 mkdir -p %{buildroot}/%{_mandir}/man1
 cp doc/*.1 %{buildroot}/%{_mandir}/man1/
 
-desktop-file-install \
-   --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
+# remove duplicate
+rm -rf %{buildroot}/%{_docdir}/packages
+
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 
 %files
 %doc LANGUAGE.HOWTO README.md
+%doc %{_target_platform}/latex/doxygen_manual.pdf
+%doc %{_target_platform}/html
 %{_bindir}/doxygen
 %{_bindir}/doxyindexer
 %{_bindir}/doxysearch*
@@ -122,8 +127,11 @@ desktop-file-install \
 %files latex
 # intentionally left blank
 
-
 %changelog
+* Tue Nov 15 2016 Than Ngo <than@redhat.com> - 1:1.8.12-3
+- bz#1394456, add missing docs
+- fix build issue when build_doc=ON
+
 * Thu Oct 20 2016 Than Ngo <than@redhat.com> - 1:1.8.12-2
 - backport upstream fixes
   Bug 771310 - French description for "Namespace Members" is wrong and causes fatal javascript error
