@@ -25,6 +25,7 @@ BuildRequires: tex(tocloft.sty)
 BuildRequires: tex(xtab.sty)
 BuildRequires: tex(import.sty)
 BuildRequires: tex(tabu.sty)
+BuildRequires: tex(appendix.sty)
 BuildRequires: /usr/bin/epstopdf
 BuildRequires: texlive-epstopdf
 BuildRequires: ghostscript
