@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.12
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -15,6 +15,7 @@ Source2: doxywizard.desktop
 # upstream fixes
 Patch1: doxygen-771310.patch
 Patch2: doxygen-771344.patch
+Patch3: doxygen-774273.patch
 
 BuildRequires: perl
 BuildRequires: tex(dvips)
@@ -132,6 +133,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 # intentionally left blank
 
 %changelog
+* Fri Nov 25 2016 Than Ngo <than@redhat.com> - - 1:1.8.12-4
+- Bug 774273 - INLINE_SIMPLE_STRUCTS with enums in classes does not work
+
 * Tue Nov 15 2016 Than Ngo <than@redhat.com> - 1:1.8.12-3
 - bz#1394456, add missing docs
 - fix build issue when build_doc=ON
