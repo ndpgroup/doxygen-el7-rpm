@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.12
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -16,6 +16,7 @@ Source2: doxywizard.desktop
 Patch1: doxygen-771310.patch
 Patch2: doxygen-771344.patch
 Patch3: doxygen-774273.patch
+Patch4: doxygen-774138.patch
 
 BuildRequires: perl
 BuildRequires: tex(dvips)
@@ -133,6 +134,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 # intentionally left blank
 
 %changelog
+* Thu Dec 08 2016 Than Ngo <than@redhat.com> - 1:1.8.12-5
+- Bug 774138 . add HTML classes to "Definition at..." & "Referenced by..." for CSS
+
 * Fri Nov 25 2016 Than Ngo <than@redhat.com> - - 1:1.8.12-4
 - Bug 774273 - INLINE_SIMPLE_STRUCTS with enums in classes does not work
 
