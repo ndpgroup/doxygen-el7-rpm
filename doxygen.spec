@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.12
-Release: 3%{?dist}
+Release: 5%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -15,6 +15,8 @@ Source2: doxywizard.desktop
 # upstream fixes
 Patch1: doxygen-771310.patch
 Patch2: doxygen-771344.patch
+Patch3: doxygen-774273.patch
+Patch4: doxygen-774138.patch
 
 BuildRequires: perl
 BuildRequires: tex(dvips)
@@ -36,6 +38,8 @@ BuildRequires: desktop-file-utils
 BuildRequires: cmake
 BuildRequires: graphviz
 BuildRequires: xapian-core-devel
+
+Requires: perl
 
 %description
 Doxygen can generate an online class browser (in HTML) and/or a
@@ -132,6 +136,13 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 # intentionally left blank
 
 %changelog
+* Thu Dec 08 2016 Than Ngo <than@redhat.com> - 1:1.8.12-5
+- fixed bz#1402043 - runtime dependency on perl
+- backport upstream patch to fix Bug 774138 . add HTML classes to "Definition at..." & "Referenced by..." for CSS
+
+* Fri Nov 25 2016 Than Ngo <than@redhat.com> - - 1:1.8.12-4
+- Bug 774273 - INLINE_SIMPLE_STRUCTS with enums in classes does not work
+
 * Tue Nov 15 2016 Than Ngo <than@redhat.com> - 1:1.8.12-3
 - bz#1394456, add missing docs
 - fix build issue when build_doc=ON

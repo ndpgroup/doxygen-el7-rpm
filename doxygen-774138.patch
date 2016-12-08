@@ -1,0 +1,217 @@
+commit d2593e56cd52ecee2424d844916f95e12fef27c8
+Author: albert-github <albert.tests@gmail.com>
+Date:   Sun Nov 13 11:24:51 2016 +0100
+
+    Bug 774138 - Please add HTML classes to "Definition at..." & "Referenced by..." for CSS
+    
+    Added class= to html output for "Definition at..." resulting in p.definition in the css file and for "Referenced by .. " and "References ..." resulting in p.definition in css file.
+    (also corrected some error messages).
+
+diff --git a/src/definition.cpp b/src/definition.cpp
+index 7e6e8ec..68201da 100644
+--- a/src/definition.cpp
++++ b/src/definition.cpp
+@@ -933,7 +933,7 @@ void Definition::writeSourceDef(OutputList &ol,const char *)
+       QCString lineStr;
+       lineStr.sprintf("%d",m_impl->body->startLine);
+       QCString anchorStr = getSourceAnchor();
+-      ol.startParagraph();
++      ol.startParagraph("definition");
+       if (lineMarkerPos<fileMarkerPos) // line marker before file marker
+       {
+         // write text left from linePos marker
+@@ -1067,7 +1067,7 @@ void Definition::writeSourceDef(OutputList &ol,const char *)
+     }
+     else
+     {
+-      err("translation error: invalid markers in trDefinedInSourceFile()\n");
++      err("translation error: invalid markers in trDefinedAtLineInSourceFile()\n");
+     }
+   }
+   ol.popGeneratorState();
+@@ -1152,7 +1152,7 @@ void Definition::_writeSourceRefList(OutputList &ol,const char *scopeName,
+   {
+     members->sort();
+ 
+-    ol.startParagraph();
++    ol.startParagraph("reference");
+     ol.parseText(text);
+     ol.docify(" ");
+ 
+diff --git a/src/filedef.cpp b/src/filedef.cpp
+index 9c04dc8..3fa896a 100644
+--- a/src/filedef.cpp
++++ b/src/filedef.cpp
+@@ -344,7 +344,7 @@ void FileDef::writeDetailedDescription(OutputList &ol,const QCString &title)
+         ol.disable(OutputGenerator::RTF);
+       }
+ 
+-      ol.startParagraph();
++      ol.startParagraph("definition");
+       QCString refText = theTranslator->trDefinedInSourceFile();
+       int fileMarkerPos = refText.find("@0");
+       if (fileMarkerPos!=-1) // should always pass this.
+@@ -355,6 +355,10 @@ void FileDef::writeDetailedDescription(OutputList &ol,const QCString &title)
+         ol.parseText(refText.right(
+               refText.length()-fileMarkerPos-2)); // text right from marker 2
+       }
++      else
++      {
++        err("translation error: invalid marker in trDefinedInSourceFile()\n");
++      }
+       ol.endParagraph();
+       //Restore settings, bug_738548
+       ol.popGeneratorState();
+diff --git a/src/htmlgen.cpp b/src/htmlgen.cpp
+index a5ec7ff..28a363b 100644
+--- a/src/htmlgen.cpp
++++ b/src/htmlgen.cpp
+@@ -1052,9 +1052,12 @@ void HtmlGenerator::endDoxyAnchor(const char *,const char *)
+ //  t << endl << "<p>" << endl;
+ //}
+ 
+-void HtmlGenerator::startParagraph()
++void HtmlGenerator::startParagraph(const char *classDef)
+ {
+-  t << endl << "<p>";
++  if (classDef)
++    t << endl << "<p class=\"" << classDef << "\">";
++  else
++    t << endl << "<p>";
+ }
+ 
+ void HtmlGenerator::endParagraph()
+diff --git a/src/htmlgen.h b/src/htmlgen.h
+index 30f54f4..1618fb2 100644
+--- a/src/htmlgen.h
++++ b/src/htmlgen.h
+@@ -140,7 +140,7 @@ class HtmlGenerator : public OutputGenerator
+     void startTitle() { t << "<div class=\"title\">"; }
+     void endTitle() { t << "</div>"; }
+     
+-    void startParagraph();
++    void startParagraph(const char *classDef = NULL);
+     void endParagraph();
+     void writeString(const char *text);
+     void startIndexListItem();
+diff --git a/src/latexgen.cpp b/src/latexgen.cpp
+index 37eacdb..f61360c 100644
+--- a/src/latexgen.cpp
++++ b/src/latexgen.cpp
+@@ -1256,7 +1256,7 @@ void LatexGenerator::newParagraph()
+   t << endl << endl;
+ }
+ 
+-void LatexGenerator::startParagraph()
++void LatexGenerator::startParagraph(const char *)
+ {
+   t << endl << endl;
+ }
+diff --git a/src/latexgen.h b/src/latexgen.h
+index 7b21ea4..844c9be 100644
+--- a/src/latexgen.h
++++ b/src/latexgen.h
+@@ -135,7 +135,7 @@ class LatexGenerator : public OutputGenerator
+     void endTitle()   { t << "}"; }
+ 
+     void newParagraph();
+-    void startParagraph();
++    void startParagraph(const char *classDef = NULL);
+     void endParagraph();
+     void writeString(const char *text);
+     void startIndexListItem() {}
+diff --git a/src/mangen.cpp b/src/mangen.cpp
+index 2f4d3ae..17e6003 100644
+--- a/src/mangen.cpp
++++ b/src/mangen.cpp
+@@ -208,7 +208,7 @@ void ManGenerator::newParagraph()
+   paragraph=TRUE;
+ }
+ 
+-void ManGenerator::startParagraph()
++void ManGenerator::startParagraph(const char *)
+ {
+   if (!paragraph)
+   {
+diff --git a/src/mangen.h b/src/mangen.h
+index daaae0c..5d0f6f1 100644
+--- a/src/mangen.h
++++ b/src/mangen.h
+@@ -62,7 +62,7 @@ class ManGenerator : public OutputGenerator
+     void endTitle();
+     
+     void newParagraph();
+-    void startParagraph();
++    void startParagraph(const char *classDef = NULL);
+     void endParagraph();
+     void writeString(const char *text);
+     void startIndexListItem() {}
+diff --git a/src/outputgen.h b/src/outputgen.h
+index 830fd49..a7da269 100644
+--- a/src/outputgen.h
++++ b/src/outputgen.h
+@@ -188,7 +188,7 @@ class BaseOutputDocInterface : public CodeOutputInterface
+     //virtual void newParagraph()   = 0;
+ 
+     /*! Starts a new paragraph */
+-    virtual void startParagraph() = 0;
++    virtual void startParagraph(const char *classDef = NULL) = 0;
+     /*! Ends a paragraph */
+     virtual void endParagraph() = 0;
+ 
+diff --git a/src/outputlist.h b/src/outputlist.h
+index 78a2ea0..c4ec3e4 100644
+--- a/src/outputlist.h
++++ b/src/outputlist.h
+@@ -112,8 +112,8 @@ class OutputList : public OutputDocInterface
+     { forall(&OutputGenerator::endTitle); }
+     //void newParagraph() 
+     //{ forall(&OutputGenerator::newParagraph); }
+-    void startParagraph() 
+-    { forall(&OutputGenerator::startParagraph); }
++    void startParagraph(const char *classDef = NULL) 
++    { forall(&OutputGenerator::startParagraph,classDef); }
+     void endParagraph() 
+     { forall(&OutputGenerator::endParagraph); }
+     void writeString(const char *text) 
+diff --git a/src/rtfgen.cpp b/src/rtfgen.cpp
+index 053d450..349d97d 100644
+--- a/src/rtfgen.cpp
++++ b/src/rtfgen.cpp
+@@ -2144,7 +2144,7 @@ void RTFGenerator::newParagraph()
+   m_omitParagraph = FALSE;
+ }
+ 
+-void RTFGenerator::startParagraph()
++void RTFGenerator::startParagraph(const char *)
+ {
+   DBG_RTF(t << "{\\comment startParagraph}" << endl)
+   newParagraph();
+diff --git a/src/rtfgen.h b/src/rtfgen.h
+index 27dd490..4d3c0ed 100644
+--- a/src/rtfgen.h
++++ b/src/rtfgen.h
+@@ -62,7 +62,7 @@ class RTFGenerator : public OutputGenerator
+     void endTitle() {} 
+ 
+     void newParagraph();
+-    void startParagraph();
++    void startParagraph(const char *classDef = NULL);
+     void endParagraph();
+     void writeString(const char *text);
+     void startIndexListItem();
+diff --git a/templates/html/doxygen.css b/templates/html/doxygen.css
+index db80bc8..26169de 100644
+--- a/templates/html/doxygen.css
++++ b/templates/html/doxygen.css
+@@ -4,6 +4,10 @@ body, table, div, p, dl {
+ 	font: 400 14px/22px Roboto,sans-serif;
+ }
+ 
++p.reference, p.definition {
++	font: 400 14px/22px Roboto,sans-serif;
++}
++
+ /* @group Heading Levels */
+ 
+ h1.groupheader {
