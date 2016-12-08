@@ -39,6 +39,8 @@ BuildRequires: cmake
 BuildRequires: graphviz
 BuildRequires: xapian-core-devel
 
+Requires: perl
+
 %description
 Doxygen can generate an online class browser (in HTML) and/or a
 reference manual (in LaTeX) from a set of documented source files. The
@@ -135,7 +137,8 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 
 %changelog
 * Thu Dec 08 2016 Than Ngo <than@redhat.com> - 1:1.8.12-5
-- Bug 774138 . add HTML classes to "Definition at..." & "Referenced by..." for CSS
+- fixed bz#1402043 - runtime dependency on perl
+- backport upstream patch to fix Bug 774138 . add HTML classes to "Definition at..." & "Referenced by..." for CSS
 
 * Fri Nov 25 2016 Than Ngo <than@redhat.com> - - 1:1.8.12-4
 - Bug 774273 - INLINE_SIMPLE_STRUCTS with enums in classes does not work
