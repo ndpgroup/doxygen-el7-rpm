@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.12
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -17,6 +17,9 @@ Patch1: doxygen-771310.patch
 Patch2: doxygen-771344.patch
 Patch3: doxygen-774273.patch
 Patch4: doxygen-774138.patch
+Patch5: doxygen-707266.patch
+Patch6: doxygen-774949.patch
+Patch7: doxygen-775245.patch
 
 BuildRequires: perl
 BuildRequires: tex(dvips)
@@ -136,6 +139,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 # intentionally left blank
 
 %changelog
+* Mon Dec 12 2016 Than Ngo <than@redhat.com> - 1:1.8.12-6
+- backport upstream patch to fix
+    Bug 707266 - C++/CLI indexed property not documented
+    Bug 774949 - Unknown reference in manual
+    Bug 775245 - referencing Python files via tagfile broken
+
 * Thu Dec 08 2016 Than Ngo <than@redhat.com> - 1:1.8.12-5
 - fixed bz#1402043 - runtime dependency on perl
 - backport upstream patch to fix Bug 774138 . add HTML classes to "Definition at..." & "Referenced by..." for CSS

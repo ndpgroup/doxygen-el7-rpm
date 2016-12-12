@@ -1,0 +1,26 @@
+diff --git a/src/scanner.l b/src/scanner.l
+index 1fe5667..14bf3fc 100644
+--- a/src/scanner.l
++++ b/src/scanner.l
+@@ -1014,7 +1014,7 @@ OPERATOR  "operator"{B}*({ARITHOP}|{ASSIGNOP}|{LOGICOP}|{BITOP})
+   					  current->name = yytext;
+   					}
+ <CliPropertyType>"["		        { // C++/CLI indexed property
+-  					  current->name += yytext;
++  					  current->args = "[";
+ 					  BEGIN( CliPropertyIndex );
+   					}
+ <CliPropertyType>"{"			{
+@@ -1037,10 +1037,10 @@ OPERATOR  "operator"{B}*({ARITHOP}|{ASSIGNOP}|{LOGICOP}|{BITOP})
+   					}
+ <CliPropertyIndex>"]"			{
+                                           BEGIN( CliPropertyType );
+-  					  current->name+=yytext;
++  					  current->args+=yytext;
+   					}
+ <CliPropertyIndex>.			{
+-  					  current->name+=yytext;
++  					  current->args+=yytext;
+   					}
+   /*
+ <FindMembers>{B}*"property"{BN}+        { 
