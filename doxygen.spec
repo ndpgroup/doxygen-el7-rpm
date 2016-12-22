@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.12
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -139,6 +139,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 # intentionally left blank
 
 %changelog
+* Thu Dec 22 2016 Orion Poplawski <orion@cora.nwra.com> - 1:1.8.12-7
+- Rebuild for xapian soname bump
+
 * Mon Dec 12 2016 Than Ngo <than@redhat.com> - 1:1.8.12-6
 - backport upstream patch to fix
     Bug 707266 - C++/CLI indexed property not documented
