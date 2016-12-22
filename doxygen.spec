@@ -21,6 +21,9 @@ Patch5: doxygen-707266.patch
 Patch6: doxygen-774949.patch
 Patch7: doxygen-775245.patch
 
+# Build with python rc
+Patch10: doxygen-rc.patch
+
 BuildRequires: perl
 BuildRequires: tex(dvips)
 BuildRequires: tex(latex)
@@ -141,6 +144,7 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 %changelog
 * Thu Dec 22 2016 Orion Poplawski <orion@cora.nwra.com> - 1:1.8.12-7
 - Rebuild for xapian soname bump
+- Add patch to build with python rc
 
 * Mon Dec 12 2016 Than Ngo <than@redhat.com> - 1:1.8.12-6
 - backport upstream patch to fix
