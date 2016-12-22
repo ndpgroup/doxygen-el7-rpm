@@ -22,6 +22,7 @@ Patch6: doxygen-774949.patch
 Patch7: doxygen-775245.patch
 
 # Build with python rc
+# https://bugzilla.gnome.org/show_bug.cgi?id=760678
 Patch10: doxygen-rc.patch
 
 BuildRequires: perl

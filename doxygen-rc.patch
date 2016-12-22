@@ -7,7 +7,7 @@ diff -up doxygen-1.8.12/doc/translator.py.rc doxygen-1.8.12/doc/translator.py
      '''
  
 -    major, minor, patch = (int(e) for e in platform.python_version_tuple())
-+    major, minor, patch = (int(re.sub('[a-z].*','',e)) for e in platform.python_version_tuple())
++    major, minor, patch = (int(re.sub('[^0-9].*','',e)) for e in platform.python_version_tuple())
      if major == 2:
          return open(fname, mode=mode) # Python 2 without encoding
      else:
@@ -16,7 +16,7 @@ diff -up doxygen-1.8.12/doc/translator.py.rc doxygen-1.8.12/doc/translator.py
  
      # The Python 2.6+ or 3.3+ is required.
 -    major, minor, patch = (int(e) for e in platform.python_version_tuple())
-+    major, minor, patch = (int(re.sub('[a-z].*','',e)) for e in platform.python_version_tuple())
++    major, minor, patch = (int(re.sub('[^0-9].*','',e)) for e in platform.python_version_tuple())
      if (major == 2 and minor < 6) or (major == 3 and minor < 0):
          print('Python 2.6+ or Python 3.0+ are required for the script')
          sys.exit(1)
