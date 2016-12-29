@@ -1,8 +1,8 @@
 Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
-Version: 1.8.12
-Release: 7%{?dist}
+Version: 1.8.13
+Release: 1%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -11,19 +11,6 @@ Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 # this icon is part of kdesdk
 Source1: doxywizard.png
 Source2: doxywizard.desktop
-
-# upstream fixes
-Patch1: doxygen-771310.patch
-Patch2: doxygen-771344.patch
-Patch3: doxygen-774273.patch
-Patch4: doxygen-774138.patch
-Patch5: doxygen-707266.patch
-Patch6: doxygen-774949.patch
-Patch7: doxygen-775245.patch
-
-# Build with python rc
-# https://bugzilla.gnome.org/show_bug.cgi?id=760678
-Patch10: doxygen-rc.patch
 
 BuildRequires: perl
 BuildRequires: tex(dvips)
@@ -143,6 +130,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 # intentionally left blank
 
 %changelog
+* Thu Dec 29 2016 Orion Poplawski <orion@cora.nwra.com> - 1:1.8.13-1
+- Update to 1.8.13
+- Drop upstream patches
+
 * Thu Dec 22 2016 Orion Poplawski <orion@cora.nwra.com> - 1:1.8.12-7
 - Rebuild for xapian soname bump
 - Add patch to build with python rc
