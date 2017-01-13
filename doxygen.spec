@@ -1,8 +1,8 @@
 Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
-Version: 1.8.12
-Release: 5%{?dist}
+Version: 1.8.13
+Release: 1%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -11,12 +11,6 @@ Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 # this icon is part of kdesdk
 Source1: doxywizard.png
 Source2: doxywizard.desktop
-
-# upstream fixes
-Patch1: doxygen-771310.patch
-Patch2: doxygen-771344.patch
-Patch3: doxygen-774273.patch
-Patch4: doxygen-774138.patch
 
 BuildRequires: perl
 BuildRequires: tex(dvips)
@@ -136,6 +130,20 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 # intentionally left blank
 
 %changelog
+* Thu Dec 29 2016 Orion Poplawski <orion@cora.nwra.com> - 1:1.8.13-1
+- Update to 1.8.13
+- Drop upstream patches
+
+* Thu Dec 22 2016 Orion Poplawski <orion@cora.nwra.com> - 1:1.8.12-7
+- Rebuild for xapian soname bump
+- Add patch to build with python rc
+
+* Mon Dec 12 2016 Than Ngo <than@redhat.com> - 1:1.8.12-6
+- backport upstream patch to fix
+    Bug 707266 - C++/CLI indexed property not documented
+    Bug 774949 - Unknown reference in manual
+    Bug 775245 - referencing Python files via tagfile broken
+
 * Thu Dec 08 2016 Than Ngo <than@redhat.com> - 1:1.8.12-5
 - fixed bz#1402043 - runtime dependency on perl
 - backport upstream patch to fix Bug 774138 . add HTML classes to "Definition at..." & "Referenced by..." for CSS
