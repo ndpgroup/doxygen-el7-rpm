@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.13
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -11,6 +11,8 @@ Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 # this icon is part of kdesdk
 Source1: doxywizard.png
 Source2: doxywizard.desktop
+
+Patch0: https://github.com/doxygen/doxygen/pull/555.patch#/doxygen-xmlgen-regression.patch
 
 BuildRequires: perl
 BuildRequires: tex(dvips)
@@ -130,6 +132,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 # intentionally left blank
 
 %changelog
+* Tue Jan 17 2017 Björn Esser <besser82@fedoraproject.org> - 1:1.8.13-2
+- Add upstream patch to fix regression (rhbz#1413296)
+
 * Thu Dec 29 2016 Orion Poplawski <orion@cora.nwra.com> - 1:1.8.13-1
 - Update to 1.8.13
 - Drop upstream patches
