@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.13
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -12,7 +12,9 @@ Source0: ftp://ftp.stack.nl/pub/users/dimitri/%{name}-%{version}.src.tar.gz
 Source1: doxywizard.png
 Source2: doxywizard.desktop
 
-Patch0: https://github.com/doxygen/doxygen/pull/555.patch#/doxygen-xmlgen-regression.patch
+# upstream patches
+Patch100: https://github.com/doxygen/doxygen/pull/555.patch#/doxygen-xmlgen-regression.patch
+Patch101: doxygen-1.8.13-#775493.patch
 
 BuildRequires: perl
 BuildRequires: tex(dvips)
@@ -132,6 +134,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 # intentionally left blank
 
 %changelog
+* Thu Jan 19 2017 Than Ngo <than@redhat.com> - 1:1.8.13-3
+- Bug 775493 - Usage of underscore's in parameter names
+
 * Tue Jan 17 2017 Björn Esser <besser82@fedoraproject.org> - 1:1.8.13-2
 - Add upstream patch to fix regression (rhbz#1413296)
 
