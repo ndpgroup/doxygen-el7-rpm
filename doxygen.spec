@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.13
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -134,6 +134,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 # intentionally left blank
 
 %changelog
+* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.8.13-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
 * Thu Jan 19 2017 Than Ngo <than@redhat.com> - 1:1.8.13-3
 - Bug 775493 - Usage of underscore's in parameter names
 
