@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.13
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -15,6 +15,7 @@ Source2: doxywizard.desktop
 # upstream patches
 Patch100: https://github.com/doxygen/doxygen/pull/555.patch#/doxygen-xmlgen-regression.patch
 Patch101: doxygen-1.8.13-#775493.patch
+Patch102: doxygen-1.8.13-#776988.patch
 
 BuildRequires: perl
 BuildRequires: tex(dvips)
@@ -134,6 +135,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 # intentionally left blank
 
 %changelog
+* Mon Mar 13 2017 Than Ngo <than@redhat.com> - 1:1.8.13-5
+- backport to fix behavior of @ref const matching (#776988)
+
 * Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.8.13-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
