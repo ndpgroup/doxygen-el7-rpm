@@ -4,6 +4,11 @@ Epoch:   1
 Version: 1.8.13
 Release: 5%{?dist}
 
+# To bootstrap on Modularity, disable checks and enable bootstrap per default:
+%bcond_with check
+%bcond_without bootstrap
+
+
 # No version is specified.
 License: GPL+
 Url: http://www.stack.nl/~dimitri/doxygen/index.html
@@ -18,6 +23,7 @@ Patch101: doxygen-1.8.13-#775493.patch
 Patch102: doxygen-1.8.13-#776988.patch
 
 BuildRequires: perl
+%if %{without bootstrap}
 BuildRequires: tex(dvips)
 BuildRequires: tex(latex)
 BuildRequires: tex(multirow.sty)
@@ -31,11 +37,14 @@ BuildRequires: /usr/bin/epstopdf
 BuildRequires: texlive-epstopdf
 BuildRequires: ghostscript
 BuildRequires: gettext
+BuildRequires: desktop-file-utils
+BuildRequires: graphviz
+%else
+BuildRequires: zlib-devel
+%endif
 BuildRequires: flex
 BuildRequires: bison
-BuildRequires: desktop-file-utils
 BuildRequires: cmake
-BuildRequires: graphviz
 BuildRequires: xapian-core-devel
 
 Requires: perl
@@ -47,6 +56,7 @@ documentation is extracted directly from the sources. Doxygen can
 also be configured to extract the code structure from undocumented
 source files.
 
+%if %{without bootstrap}
 %package doxywizard
 Summary: A GUI for creating and editing configuration files
 Requires: %{name} = %{epoch}:%{version}-%{release}
@@ -71,6 +81,7 @@ Requires: texlive-epstopdf-bin
 %endif
 %description latex
 %{summary}.
+%endif
 
 
 %prep
@@ -86,6 +97,7 @@ mv LANGUAGE.HOWTO.new LANGUAGE.HOWTO
 
 mkdir -p %{_target_platform}
 pushd %{_target_platform}
+%if %{without bootstrap}
 %cmake \
       -Dbuild_doc=ON \
       -Dbuild_wizard=ON \
@@ -95,9 +107,25 @@ pushd %{_target_platform}
       -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} \
       -DBUILD_SHARED_LIBS=OFF \
       ..
+%else
+%cmake \
+      -Dbuild_doc=OFF \
+      -Dbuild_wizard=OFF \
+      -Dbuild_xmlparser=ON \
+      -Dbuild_search=OFF \
+      -DMAN_INSTALL_DIR=%{_mandir}/man1 \
+      -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} \
+      -DBUILD_SHARED_LIBS=OFF \
+      ..
+%endif
 popd
 
+%if %{without bootstrap}
 make docs %{?_smp_mflags} -C %{_target_platform}
+%else
+mkdir -p *-redhat-linux-gnu/latex
+touch *-redhat-linux-gnu/latex/doxygen_manual.pdf
+%endif
 make %{?_smp_mflags} -C %{_target_platform}
 
 %install
@@ -108,31 +136,42 @@ install -m644 -p -D %{SOURCE1} %{buildroot}%{_datadir}/pixmaps/doxywizard.png
 # install man pages
 mkdir -p %{buildroot}/%{_mandir}/man1
 cp doc/*.1 %{buildroot}/%{_mandir}/man1/
+%if ! %{without bootstrap}
+rm -f %{buildroot}/%{_mandir}/man1/doxywizard.1*
+%endif
 
 # remove duplicate
 rm -rf %{buildroot}/%{_docdir}/packages
 
+%if %{without bootstrap}
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
+%endif
 
 %files
 %doc LANGUAGE.HOWTO README.md
+%if %{without bootstrap}
 %doc %{_target_platform}/latex/doxygen_manual.pdf
 %doc %{_target_platform}/html
-%{_bindir}/doxygen
 %{_bindir}/doxyindexer
 %{_bindir}/doxysearch*
+%endif
+%{_bindir}/doxygen
 %{_mandir}/man1/doxygen.1*
 %{_mandir}/man1/doxyindexer.1*
 %{_mandir}/man1/doxysearch.1*
 
+%if %{without bootstrap}
 %files doxywizard
 %{_bindir}/doxywizard
 %{_mandir}/man1/doxywizard*
 %{_datadir}/applications/doxywizard.desktop
+%endif
 %{_datadir}/pixmaps/doxywizard.png
 
+%if %{without bootstrap}
 %files latex
 # intentionally left blank
+%endif
 
 %changelog
 * Mon Mar 13 2017 Than Ngo <than@redhat.com> - 1:1.8.13-5
