@@ -2,11 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.13
-Release: 5%{?dist}
-
-# To bootstrap on Modularity, disable checks and enable bootstrap per default:
-%bcond_with check
-%bcond_without bootstrap
+Release: 6%{?dist}
 
 
 # No version is specified.
@@ -23,7 +19,7 @@ Patch101: doxygen-1.8.13-#775493.patch
 Patch102: doxygen-1.8.13-#776988.patch
 
 BuildRequires: perl
-%if %{without bootstrap}
+%if ! 0%{?_module_build}
 BuildRequires: tex(dvips)
 BuildRequires: tex(latex)
 BuildRequires: tex(multirow.sty)
@@ -56,7 +52,7 @@ documentation is extracted directly from the sources. Doxygen can
 also be configured to extract the code structure from undocumented
 source files.
 
-%if %{without bootstrap}
+%if ! 0%{?_module_build}
 %package doxywizard
 Summary: A GUI for creating and editing configuration files
 Requires: %{name} = %{epoch}:%{version}-%{release}
@@ -97,7 +93,7 @@ mv LANGUAGE.HOWTO.new LANGUAGE.HOWTO
 
 mkdir -p %{_target_platform}
 pushd %{_target_platform}
-%if %{without bootstrap}
+%if ! 0%{?_module_build}
 %cmake \
       -Dbuild_doc=ON \
       -Dbuild_wizard=ON \
@@ -120,7 +116,7 @@ pushd %{_target_platform}
 %endif
 popd
 
-%if %{without bootstrap}
+%if ! 0%{?_module_build}
 make docs %{?_smp_mflags} -C %{_target_platform}
 %else
 mkdir -p *-redhat-linux-gnu/latex
@@ -136,20 +132,20 @@ install -m644 -p -D %{SOURCE1} %{buildroot}%{_datadir}/pixmaps/doxywizard.png
 # install man pages
 mkdir -p %{buildroot}/%{_mandir}/man1
 cp doc/*.1 %{buildroot}/%{_mandir}/man1/
-%if ! %{without bootstrap}
+%if 0%{?_module_build}
 rm -f %{buildroot}/%{_mandir}/man1/doxywizard.1*
 %endif
 
 # remove duplicate
 rm -rf %{buildroot}/%{_docdir}/packages
 
-%if %{without bootstrap}
+%if ! 0%{?_module_build}
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 %endif
 
 %files
 %doc LANGUAGE.HOWTO README.md
-%if %{without bootstrap}
+%if ! 0%{?_module_build}
 %doc %{_target_platform}/latex/doxygen_manual.pdf
 %doc %{_target_platform}/html
 %{_bindir}/doxyindexer
@@ -160,7 +156,7 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 %{_mandir}/man1/doxyindexer.1*
 %{_mandir}/man1/doxysearch.1*
 
-%if %{without bootstrap}
+%if ! 0%{?_module_build}
 %files doxywizard
 %{_bindir}/doxywizard
 %{_mandir}/man1/doxywizard*
@@ -174,6 +170,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 %endif
 
 %changelog
+* Fri Apr 21 2017 Karsten Hopp <karsten@redhat.com> - 1.8.13-6
+- use new _module_build macro to limit dependencies for Modularity
+
 * Mon Mar 13 2017 Than Ngo <than@redhat.com> - 1:1.8.13-5
 - backport to fix behavior of @ref const matching (#776988)
 
