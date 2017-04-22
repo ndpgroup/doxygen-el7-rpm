@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.13
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 
 # No version is specified.
@@ -164,12 +164,15 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 %endif
 %{_datadir}/pixmaps/doxywizard.png
 
-%if %{without bootstrap}
+%if ! 0%{?_module_build}
 %files latex
 # intentionally left blank
 %endif
 
 %changelog
+* Sat Apr 22 2017 Karsten Hopp <karsten@redhat.com> - 1.8.13-7
+- fix _module_build macro
+
 * Fri Apr 21 2017 Karsten Hopp <karsten@redhat.com> - 1.8.13-6
 - use new _module_build macro to limit dependencies for Modularity
 
