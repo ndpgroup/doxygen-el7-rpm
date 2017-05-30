@@ -2,8 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.13
-Release: 7%{?dist}
-
+Release: 8%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -17,6 +16,7 @@ Source2: doxywizard.desktop
 Patch100: https://github.com/doxygen/doxygen/pull/555.patch#/doxygen-xmlgen-regression.patch
 Patch101: doxygen-1.8.13-#775493.patch
 Patch102: doxygen-1.8.13-#776988.patch
+Patch103: doxygen-1.8.13-verticl_bar_latex.patch
 
 BuildRequires: perl
 %if ! 0%{?_module_build}
@@ -170,6 +170,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 %endif
 
 %changelog
+* Tue May 30 2017 Than Ngo <than@redhat.com> - 1:1.8.13-8
+- backport to fix problem where automatic line breaking caused
+  missing vertical bars in the parameter table for Latex output
+
 * Sat Apr 22 2017 Karsten Hopp <karsten@redhat.com> - 1.8.13-7
 - fix _module_build macro
 
