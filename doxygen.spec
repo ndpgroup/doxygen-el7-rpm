@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.13
-Release: 9%{?dist}
+Release: 10%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -20,7 +20,7 @@ Patch103: doxygen-1.8.13-verticl_bar_latex.patch
 Patch104: doxygen-1.8.13-C#-property-initializer-parsing.patch
 Patch105: doxygen-1.8.13-non-reachable-links.patch
 
-BuildRequires: perl
+BuildRequires: perl-interpreter
 %if ! 0%{?_module_build}
 BuildRequires: tex(dvips)
 BuildRequires: tex(latex)
@@ -45,7 +45,7 @@ BuildRequires: bison
 BuildRequires: cmake
 BuildRequires: xapian-core-devel
 
-Requires: perl
+Requires: perl-interpreter
 
 %description
 Doxygen can generate an online class browser (in HTML) and/or a
@@ -172,6 +172,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 %endif
 
 %changelog
+* Thu Jul 13 2017 Petr Pisar <ppisar@redhat.com> - 1:1.8.13-10
+- perl dependency renamed to perl-interpreter
+  <https://fedoraproject.org/wiki/Changes/perl_Package_to_Install_Core_Modules>
+
 * Tue Jul 04 2017 Than Ngo <than@redhat.com> - 1:1.8.13-9
 - backport to fix C# property initializer parsing 
 - backport to fix non reachable links and redirected links in documentation
