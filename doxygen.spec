@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.13
-Release: 10%{?dist}
+Release: 11%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -172,6 +172,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 %endif
 
 %changelog
+* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.8.13-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
 * Thu Jul 13 2017 Petr Pisar <ppisar@redhat.com> - 1:1.8.13-10
 - perl dependency renamed to perl-interpreter
   <https://fedoraproject.org/wiki/Changes/perl_Package_to_Install_Core_Modules>
