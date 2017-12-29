@@ -1,8 +1,8 @@
 Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
-Version: 1.8.13
-Release: 12%{?dist}
+Version: 1.8.14
+Release: 1%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -13,12 +13,6 @@ Source1: doxywizard.png
 Source2: doxywizard.desktop
 
 # upstream patches
-Patch100: https://github.com/doxygen/doxygen/pull/555.patch#/doxygen-xmlgen-regression.patch
-Patch101: doxygen-1.8.13-#775493.patch
-Patch102: doxygen-1.8.13-#776988.patch
-Patch103: doxygen-1.8.13-verticl_bar_latex.patch
-Patch104: doxygen-1.8.13-C#-property-initializer-parsing.patch
-Patch105: doxygen-1.8.13-non-reachable-links.patch
 
 BuildRequires: perl-interpreter
 %if ! 0%{?_module_build}
@@ -172,6 +166,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 %endif
 
 %changelog
+* Fri Dec 29 2017 Than Ngo <than@redhat.com> - 1:1.8.14-1
+- update to 1.8.14
+
 * Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.8.13-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
 
