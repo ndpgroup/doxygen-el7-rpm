@@ -2,7 +2,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.14
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -25,6 +25,7 @@ BuildRequires: tex(xtab.sty)
 BuildRequires: tex(import.sty)
 BuildRequires: tex(tabu.sty)
 BuildRequires: tex(appendix.sty)
+BuildRequires: tex(adjustbox.sty)
 BuildRequires: /usr/bin/epstopdf
 BuildRequires: texlive-epstopdf
 BuildRequires: ghostscript
@@ -166,6 +167,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 %endif
 
 %changelog
+* Mon Apr 30 2018 Than Ngo <than@redhat.com> - 1.8.14-3
+- added missing BR on adjustbox.sty for refman
+
 * Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.8.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
