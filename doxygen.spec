@@ -1,8 +1,13 @@
+%if 0%{?fedora}
+%global xapian_core_support OFF
+%else
+%global xapian_core_support OFF
+%endif
 Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.14
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -38,7 +43,9 @@ BuildRequires: zlib-devel
 BuildRequires: flex
 BuildRequires: bison
 BuildRequires: cmake
+%if %{xapian_core_support} == "ON"
 BuildRequires: xapian-core-devel
+%endif
 
 Requires: perl-interpreter
 
@@ -95,7 +102,7 @@ pushd %{_target_platform}
       -Dbuild_doc=ON \
       -Dbuild_wizard=ON \
       -Dbuild_xmlparser=ON \
-      -Dbuild_search=ON \
+      -Dbuild_search=%{xapian_core_support} \
       -DMAN_INSTALL_DIR=%{_mandir}/man1 \
       -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} \
       -DBUILD_SHARED_LIBS=OFF \
@@ -132,6 +139,9 @@ cp doc/*.1 %{buildroot}/%{_mandir}/man1/
 %if 0%{?_module_build}
 rm -f %{buildroot}/%{_mandir}/man1/doxywizard.1*
 %endif
+%if %{xapian_core_support} == "OFF"
+rm -f %{buildroot}/%{_mandir}/man1/doxyindexer.1* %{buildroot}/%{_mandir}/man1/doxysearch.1*
+%endif
 
 # remove duplicate
 rm -rf %{buildroot}/%{_docdir}/packages
@@ -145,13 +155,17 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 %if ! 0%{?_module_build}
 %doc %{_target_platform}/latex/doxygen_manual.pdf
 %doc %{_target_platform}/html
+%if %{xapian_core_support} == "ON"
 %{_bindir}/doxyindexer
 %{_bindir}/doxysearch*
 %endif
+%endif
 %{_bindir}/doxygen
 %{_mandir}/man1/doxygen.1*
+%if %{xapian_core_support} == "ON"
 %{_mandir}/man1/doxyindexer.1*
 %{_mandir}/man1/doxysearch.1*
+%endif
 
 %if ! 0%{?_module_build}
 %files doxywizard
@@ -167,6 +181,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 %endif
 
 %changelog
+* Wed Jun 20 2018 Than Ngo <than@redhat.com> - 1.8.14-4
+- enble search addon on fedora
+
 * Mon Apr 30 2018 Than Ngo <than@redhat.com> - 1.8.14-3
 - added missing BR on adjustbox.sty for refman
 
