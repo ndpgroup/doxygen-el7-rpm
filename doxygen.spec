@@ -46,6 +46,7 @@ BuildRequires: bison
 BuildRequires: cmake
 %if %{xapian_core_support} == "ON"
 BuildRequires: xapian-core-devel
+BuildRequires: zlib-devel
 %endif
 Requires: perl-interpreter
 
@@ -101,6 +102,7 @@ mkdir -p %{_target_platform}
 pushd %{_target_platform}
 %if ! 0%{?_module_build}
 %cmake \
+      -DPYTHON_EXECUTABLE=%{_bindir}/python3 \
       -Dbuild_doc=ON \
       -Dbuild_wizard=ON \
       -Dbuild_xmlparser=ON \
@@ -111,6 +113,7 @@ pushd %{_target_platform}
       ..
 %else
 %cmake \
+      -DPYTHON_EXECUTABLE=%{_bindir}/python3 \
       -Dbuild_doc=OFF \
       -Dbuild_wizard=OFF \
       -Dbuild_xmlparser=ON \
