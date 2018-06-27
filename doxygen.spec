@@ -1,13 +1,14 @@
 %if 0%{?fedora}
-%global xapian_core_support OFF
+%global xapian_core_support ON
 %else
 %global xapian_core_support OFF
 %endif
+
 Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.14
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -46,7 +47,6 @@ BuildRequires: cmake
 %if %{xapian_core_support} == "ON"
 BuildRequires: xapian-core-devel
 %endif
-
 Requires: perl-interpreter
 
 %description
@@ -60,7 +60,8 @@ source files.
 %package doxywizard
 Summary: A GUI for creating and editing configuration files
 Requires: %{name} = %{epoch}:%{version}-%{release}
-BuildRequires: qt4-devel
+BuildRequires: qt5-qtbase-devel
+
 %description doxywizard
 Doxywizard is a GUI for creating and editing configuration files that
 are used by doxygen.
@@ -79,6 +80,7 @@ Requires: tex(tabu.sty)
 Requires: tex(appendix.sty)
 Requires: texlive-epstopdf-bin
 %endif
+
 %description latex
 %{summary}.
 %endif
@@ -139,6 +141,7 @@ cp doc/*.1 %{buildroot}/%{_mandir}/man1/
 %if 0%{?_module_build}
 rm -f %{buildroot}/%{_mandir}/man1/doxywizard.1*
 %endif
+
 %if %{xapian_core_support} == "OFF"
 rm -f %{buildroot}/%{_mandir}/man1/doxyindexer.1* %{buildroot}/%{_mandir}/man1/doxysearch.1*
 %endif
@@ -166,7 +169,6 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 %{_mandir}/man1/doxyindexer.1*
 %{_mandir}/man1/doxysearch.1*
 %endif
-
 %if ! 0%{?_module_build}
 %files doxywizard
 %{_bindir}/doxywizard
@@ -181,6 +183,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 %endif
 
 %changelog
+* Wed Jun 27 2018 Than Ngo <than@redhat.com> - 1:1.8.14-5
+- support Qt5
+
 * Wed Jun 20 2018 Than Ngo <than@redhat.com> - 1.8.14-4
 - enble search addon on fedora
 
