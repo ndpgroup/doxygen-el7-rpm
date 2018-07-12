@@ -8,7 +8,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.14
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -186,6 +186,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 %endif
 
 %changelog
+* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.8.14-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
 * Wed Jun 27 2018 Than Ngo <than@redhat.com> - 1:1.8.14-5
 - support Qt5
 
