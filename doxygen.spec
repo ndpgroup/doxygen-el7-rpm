@@ -8,7 +8,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.14
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -20,6 +20,7 @@ Source2: doxywizard.desktop
 
 # upstream patches
 
+BuildRequires: gcc-c++ gcc
 BuildRequires: perl-interpreter
 %if ! 0%{?_module_build}
 BuildRequires: tex(dvips)
@@ -186,6 +187,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 %endif
 
 %changelog
+* Mon Jul 23 2018 Than Ngo <than@redhat.com> - 1:1.8.14-7
+- add BR: gcc-c++ gcc
+
 * Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.8.14-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
