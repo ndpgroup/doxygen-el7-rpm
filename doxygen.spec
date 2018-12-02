@@ -8,7 +8,7 @@ Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   1
 Version: 1.8.14
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 # No version is specified.
 License: GPL+
@@ -29,8 +29,10 @@ BuildRequires: tex(multirow.sty)
 BuildRequires: tex(sectsty.sty)
 BuildRequires: tex(tocloft.sty)
 BuildRequires: tex(xtab.sty)
+%if ! 0%{?rhel}
 BuildRequires: tex(import.sty)
 BuildRequires: tex(tabu.sty)
+%endif
 BuildRequires: tex(appendix.sty)
 BuildRequires: tex(adjustbox.sty)
 BuildRequires: /usr/bin/epstopdf
@@ -187,6 +189,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE2}
 %endif
 
 %changelog
+* Sun Dec 02 2018 James E. Flemer <james.flemer@ndpgroup.com> - 1:1.8.14-8
+- Skip missing tex deps on RHEL
+
 * Mon Jul 23 2018 Than Ngo <than@redhat.com> - 1:1.8.14-7
 - add BR: gcc-c++ gcc
 
